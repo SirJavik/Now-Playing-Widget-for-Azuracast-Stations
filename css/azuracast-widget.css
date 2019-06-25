@@ -1,0 +1,39 @@
+.acnp {
+    display: flex;
+    align-items: stretch;
+    align-content: flex-start;
+}
+    
+.acnp_cover{
+    order: 2;
+    vertical-align: top;
+}
+.acnp_cover img{
+    max-height: 150px;
+}
+
+.acnp_text{
+    order: 1;
+    text-align: right;
+    margin: 0 10px;
+}
+
+.acnp_prefix{
+    font-weight: bold;
+}
+
+.acnp_cta{
+    margin: 10px 0;
+}
+
+.acnp_cta input{
+    white-space:nowrap;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.acnp_prefix
+.acnp_title,
+.acnp_cta{
+    width: 100%;
+}
