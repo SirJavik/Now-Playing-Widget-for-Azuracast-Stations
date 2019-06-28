@@ -3,7 +3,7 @@
  *  * Plugin Name: Now Playing Widget für Azuracast Stationen
  *  * Description: Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird.
  *  * Plugin URI: https://javik.net/azuracast-widget
- *  * Version: 1.1.5
+ *  * Version: 1.1.6
  *  * Author: Javik
  *  * Author URI: https://javik.net
  *  * Text Domain: now-playing-widget-fuer-azuracast-stationen
@@ -46,7 +46,7 @@ class Azuracast_Widget extends WP_Widget {
 
         <?php // Widget Title ?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Titel', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
             </p>
 
@@ -58,13 +58,13 @@ class Azuracast_Widget extends WP_Widget {
         
         <?php // Webplayer Link ?>
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'own_player_link' ) ); ?>"><?php _e( 'Eigener Player Link', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'own_player_link' ) ); ?>"><?php _e( 'Own player link', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
             <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'own_player_link' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'own_player_link' ) ); ?>" type="text" value="<?php echo esc_attr( $own_player_link ); ?>" />
         </p>
         
         <?php // Own Player Link ?>
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'webplayer_link' ) ); ?>"><?php _e( 'Webplayer Link', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'webplayer_link' ) ); ?>"><?php _e( 'Webplayer link', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
             <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'webplayer_link' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'webplayer_link' ) ); ?>" type="text" value="<?php echo esc_attr( $webplayer_link ); ?>" />
         </p>
 
@@ -78,32 +78,32 @@ class Azuracast_Widget extends WP_Widget {
         <p>
             <?php // Show Cover ?>
             <input id="<?php echo esc_attr( $this->get_field_id( 'show_cover' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_cover' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_cover ); ?> />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'show_cover' ) ); ?>"><?php _e( 'Cover anzeigen', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'show_cover' ) ); ?>"><?php _e( 'Show cover', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
             <br>
 
             <?php // Show Track ?>
             <input id="<?php echo esc_attr( $this->get_field_id( 'show_track' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_track' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_track ); ?> />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'show_track' ) ); ?>"><?php _e( 'Track anzeigen', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'show_track' ) ); ?>"><?php _e( 'Show track', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
             <br>
 
             <?php // Show Artist ?>
             <input id="<?php echo esc_attr( $this->get_field_id( 'show_artist' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_artist' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_artist ); ?> />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'show_artist' ) ); ?>"><?php _e( 'Künstler anzeigen', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'show_artist' ) ); ?>"><?php _e( 'Show artist', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
             <br>
 
             <?php // Show Album ?>
             <input id="<?php echo esc_attr( $this->get_field_id( 'show_album' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_album' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_album ); ?> />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'show_album' ) ); ?>"><?php _e( 'Album anzeigen', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'show_album' ) ); ?>"><?php _e( 'Show album', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
             <br>
             
             <?php // Show Webplayer Button ?>
             <input id="<?php echo esc_attr( $this->get_field_id( 'webplayer_btn' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'webplayer_btn' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $webplayer_btn ); ?> />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'webplayer_btn' ) ); ?>"><?php _e( 'Webplayer Button anzeigen', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'webplayer_btn' ) ); ?>"><?php _e( 'Show webplayer button', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
             <br>
             
             <?php // Show Own Player Button ?>
             <input id="<?php echo esc_attr( $this->get_field_id( 'own_player_btn' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'own_player_btn' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $own_player_btn ); ?> />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'own_player_btn' ) ); ?>"><?php _e( 'Eigener Player Button anzeigen', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'own_player_btn' ) ); ?>"><?php _e( 'Show own player button', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
         </p>
     <?php 
     }
@@ -184,7 +184,7 @@ class Azuracast_Widget extends WP_Widget {
         
                 <div class="acnp_text">
                     <div class="acnp_prefix">
-                        <?php _e( 'Es läuft:', 'now-playing-widget-fuer-azuracast-stationen' );?>
+                        <?php _e( 'Now playing:', 'now-playing-widget-fuer-azuracast-stationen' );?>
                     </div>
                     
                 <div class="acnp_title">
@@ -204,7 +204,7 @@ class Azuracast_Widget extends WP_Widget {
                     ?>
                 </div>
                     
-                <div class="acnp_cta">
+                <div class="acnp_cta" id="inline">
                     <?php
                     if($webplayer_btn == true) {
                         echo '<input type="button" value="'.__( 'Webplayer', 'now-playing-widget-fuer-azuracast-stationen' ).'" onclick="window.open(\''.$webplayer_link.'\');" />';
@@ -215,11 +215,25 @@ class Azuracast_Widget extends WP_Widget {
                     ?>
                 </div>
             </div>
-        
+
+            </div>
+
+            <div class="acnp_cta" id="outline">
+		        <?php
+		        if($webplayer_btn == true) {
+			        echo '<input type="button" value="'.__( 'Webplayer', 'now-playing-widget-fuer-azuracast-stationen' ).'" onclick="window.open(\''.$webplayer_link.'\');" />';
+		        }
+		        if($own_player_btn == true) {
+			        echo '<input type="button" value="'.__( 'Own player', 'now-playing-widget-fuer-azuracast-stationen' ).'"  onclick="window.open(\''.$own_player_link.'\');" />';
+		        }
+		        ?>
+            </div>
+
+
+
             <?php
         }
 
-    echo '</div>';
 
     // WordPress core after_widget hook (always include )
     echo $after_widget;
