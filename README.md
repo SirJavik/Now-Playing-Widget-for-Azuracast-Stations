@@ -1,17 +1,18 @@
 ## Now Playing Widget für Azuracast Stationen
+
 Contributors: sirjavik
-Stable tag: 1.1.5
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=truebenny003%40gmail.com&currency_code=EUR&source=url
-Tags: Azuracast, Widget, Now Playing
-Requires at least: 4.6.0
-Tested up to: 5.2.2
-Requires PHP: 5.6.0
-License: GPLv3
+
+Stable tag: 1.1.5  
+Tags: Azuracast, Widget, Now Playing  
+Requires at least: 4.6.0  
+Tested up to: 5.2.2  
+Requires PHP: 5.6.0  
+License: GPLv3  
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird.
 
-### Description
+### Beschreibung
 
 Das Plugin fügt ein Widget zu WordPress hinzu, mit dem man sich von der API einer Azuracast Station den aktuell gespielten Titel auf seinem Blog anzeigen lassen kann.
 Man kann außerdem einstellen, ob man das Cover anzeigen möchte, ob das Album angezeigt werden soll oder vielleicht nur der Titel oder der Künstler.
