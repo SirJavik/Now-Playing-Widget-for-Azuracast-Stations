@@ -1,9 +1,9 @@
 <?php
 /**
- *  * Plugin Name: Now Playing Widget für AzuraCast Stationen
- *  * Description: Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird.
+ *  * Plugin Name: Now Playing Widget for AzuraCast stations
+ *  * Description: Shows in a widget what is currently being played on the AzuraCast instance.
  *  * Plugin URI: https://javik.net/azuracast-widget
- *  * Version: 1.1.6
+ *  * Version: 1.1.7
  *  * Author: Javik
  *  * Author URI: https://javik.net
  *  * Text Domain: now-playing-widget-fuer-azuracast-stationen
@@ -210,7 +210,7 @@ class Azuracast_Widget extends WP_Widget {
                         echo '<input type="button" value="'.__( 'Webplayer', 'now-playing-widget-fuer-azuracast-stationen' ).'" onclick="window.open(\''.$webplayer_link.'\');" />';
                     }
                     if($own_player_btn == true) {
-                        echo '<input type="button" value="'.__( 'Eigener Player', 'now-playing-widget-fuer-azuracast-stationen' ).'"  onclick="window.open(\''.$own_player_link.'\');" />';
+                        echo '<input type="button" value="'.__( 'Own player', 'now-playing-widget-fuer-azuracast-stationen' ).'"  onclick="window.open(\''.$own_player_link.'\');" />';
                     }
                     ?>
                 </div>
