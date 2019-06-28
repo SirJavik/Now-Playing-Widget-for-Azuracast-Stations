@@ -1,6 +1,6 @@
 === Now Playing Widget für Azuracast Stationen ===
-Contributors: sirjavik
-Stable tag: 1.1.5
+Contributors: sirjavik, se-schwarz
+Stable tag: 1.2.0
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=truebenny003%40gmail.com&currency_code=EUR&source=url
 Tags: Azuracast, Widget, Now Playing
 Requires at least: 4.6.0

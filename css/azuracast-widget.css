@@ -2,6 +2,7 @@
     display: flex;
     align-items: stretch;
     align-content: flex-start;
+
 }
     
 .acnp_cover{
@@ -34,6 +35,26 @@
 
 .acnp_prefix
 .acnp_title,
-.acnp_cta{
+.acnp_cta {
     width: 100%;
+}
+
+@media only screen and (max-width: 531px) {
+    .acnp_cta#inline {
+        display:none;
+    }
+
+    .acnp_cta#outline {
+        display:inline-block;
+    }
+
+    .acnp_cta#outline input {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 531px) {
+    .acnp_cta#outline {
+        display:none;
+    }
 }

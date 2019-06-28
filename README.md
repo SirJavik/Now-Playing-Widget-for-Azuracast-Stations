@@ -1,7 +1,7 @@
 ## Now Playing Widget für Azuracast Stationen
 
-Contributors: sirjavik
-Stable tag: 1.1.5  
+Contributors: sirjavik, se-schwarz  
+Stable tag: 1.2.0
 Tags: Azuracast, Widget, Now Playing  
 Requires at least: 4.6.0  
 Tested up to: 5.2.2  
