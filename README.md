@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/SirJavik/Now-Playing-Widget-for-Azuracast-Stations/assets/banner-772x250.png "Header")
+![Header](https://raw.githubusercontent.com/SirJavik/Now-Playing-Widget-for-Azuracast-Stations/assets/banner-1544x500.png "Header")
 ## Now Playing Widget für AzuraCast Stationen
 
 Contributors: sirjavik, se-schwarz  
