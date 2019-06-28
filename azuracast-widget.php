@@ -3,7 +3,7 @@
  *  * Plugin Name: Now Playing Widget für Azuracast Stationen
  *  * Description: Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird.
  *  * Plugin URI: https://javik.net/azuracast-widget
- *  * Version: 1.2.0
+ *  * Version: 1.1.6
  *  * Author: Javik
  *  * Author URI: https://javik.net
  *  * Text Domain: now-playing-widget-fuer-azuracast-stationen

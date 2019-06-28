@@ -1,7 +1,7 @@
 ## Now Playing Widget für Azuracast Stationen
 
 Contributors: sirjavik, se-schwarz  
-Stable tag: 1.2.0
+Stable tag: 1.1.6
 Tags: Azuracast, Widget, Now Playing  
 Requires at least: 4.6.0  
 Tested up to: 5.2.2  
@@ -23,6 +23,10 @@ Man kann außerdem einstellen, ob man das Cover anzeigen möchte, ob das Album a
 3. Unter Design->Widgets kannst du dann "Azuracast: Now Playing" hinzufügen und konfigurieren.
 
 ###  Changelog 
+
+#### 1.1.6
+- Standardsprache auf Englisch geändert
+- Bessere Version für schmale bzw. mobile Sidebars
 
 #### 1.1.4 & 1.1.5
 Mehrere Fehler in der Übersetzung wurden behoben. Die Übersetzungen sollten nun vollständig funktionieren. 
