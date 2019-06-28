@@ -1,8 +1,9 @@
-## Now Playing Widget für Azuracast Stationen
+![alt text](https://raw.githubusercontent.com/SirJavik/Now-Playing-Widget-for-Azuracast-Stations/assets/banner-772x250.png "Header")
+## Now Playing Widget für AzuraCast Stationen
 
 Contributors: sirjavik, se-schwarz  
 Stable tag: 1.1.6
-Tags: Azuracast, Widget, Now Playing  
+Tags: AzuraCast, Widget, Now Playing  
 Requires at least: 4.6.0  
 Tested up to: 5.2.2  
 Requires PHP: 5.6.0  
@@ -13,14 +14,14 @@ Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird.
 
 ### Beschreibung
 
-Das Plugin fügt ein Widget zu WordPress hinzu, mit dem man sich von der API einer Azuracast Station den aktuell gespielten Titel auf seinem Blog anzeigen lassen kann.
+Das Plugin fügt ein Widget zu WordPress hinzu, mit dem man sich von der API einer AzuraCast Station den aktuell gespielten Titel auf seinem Blog anzeigen lassen kann.
 Man kann außerdem einstellen, ob man das Cover anzeigen möchte, ob das Album angezeigt werden soll oder vielleicht nur der Titel oder der Künstler.
 
 ### Installation
 
 1. Laden die Plugin-Dateien in das Verzeichnis `/wp-content/plugins/plugins/now-playing-widget-for-azuracast-stations` hoch oder installiere das Plugin direkt über das WordPress Plugin-Menü.
 2. Aktiviere das Plugin über das Menü "Plugins" in WordPress.
-3. Unter Design->Widgets kannst du dann "Azuracast: Now Playing" hinzufügen und konfigurieren.
+3. Unter Design->Widgets kannst du dann "AzuraCast: Now Playing" hinzufügen und konfigurieren.
 
 ###  Changelog 
 
