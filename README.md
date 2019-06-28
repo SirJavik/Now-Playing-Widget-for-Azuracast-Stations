@@ -1,7 +1,6 @@
 ## Now Playing Widget für Azuracast Stationen
 
 Contributors: sirjavik
-
 Stable tag: 1.1.5  
 Tags: Azuracast, Widget, Now Playing  
 Requires at least: 4.6.0  
