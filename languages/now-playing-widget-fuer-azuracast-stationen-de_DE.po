@@ -1,0 +1,97 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Now Playing Widget für Azuracast Stationen\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-28 08:39+0000\n"
+"PO-Revision-Date: 2019-06-28 08:39+0000\n"
+"Last-Translator: Javik <javik@javik.net>\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.2"
+
+#: azuracast-widget.php:20
+msgid "Azuracast: Now Playing"
+msgstr "Azuracast: Now Playing"
+
+#: azuracast-widget.php:49
+msgid "Titel"
+msgstr "Titel"
+
+#: azuracast-widget.php:55
+msgid "Azuracast"
+msgstr "Azuracast"
+
+#: azuracast-widget.php:61
+msgid "Eigener Player Link"
+msgstr "Eigener Player Link"
+
+#: azuracast-widget.php:67
+msgid "Webplayer Link"
+msgstr "Webplayer Link"
+
+#: azuracast-widget.php:73
+msgid "Station ID"
+msgstr "Station ID"
+
+#: azuracast-widget.php:81
+msgid "Cover anzeigen"
+msgstr "Cover anzeigen"
+
+#: azuracast-widget.php:86
+msgid "Track anzeigen"
+msgstr "Track anzeigen"
+
+#: azuracast-widget.php:91
+msgid "Künstler anzeigen"
+msgstr "Künstler anzeigen"
+
+#: azuracast-widget.php:96
+msgid "Album anzeigen"
+msgstr "Album anzeigen"
+
+#: azuracast-widget.php:101
+msgid "Webplayer Button anzeigen"
+msgstr "Webplayer Button anzeigen"
+
+#: azuracast-widget.php:106
+msgid "Eigener Player Button anzeigen"
+msgstr "Eigener Player Button anzeigen"
+
+#: azuracast-widget.php:187
+msgid "Es läuft:"
+msgstr "Es läuft:"
+
+#: azuracast-widget.php:210
+msgid "Webplayer"
+msgstr "Webplayer"
+
+#: azuracast-widget.php:213
+msgid "Eigener Player"
+msgstr "Eigener Player"
+
+#. Name of the plugin
+msgid "Now Playing Widget für Azuracast Stationen"
+msgstr "Now Playing Widget für Azuracast Stationen"
+
+#. Description of the plugin
+msgid ""
+"Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird."
+msgstr ""
+"Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird."
+
+#. URI of the plugin
+msgid "https://javik.net/azuracast-widget"
+msgstr "https://javik.net/azuracast-widget"
+
+#. Author of the plugin
+msgid "Javik"
+msgstr "Javik"
+
+#. Author URI of the plugin
+msgid "https://javik.net"
+msgstr "https://javik.net"
