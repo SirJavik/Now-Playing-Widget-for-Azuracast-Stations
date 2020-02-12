@@ -1,51 +1,60 @@
-=== Now Playing Widget für AzuraCast Stationen ===
+=== Now playing for AzuraCast ===
+
 Contributors: sirjavik, se-schwarz
-Stable tag: 1.1.7
+Stable tag: 1.2.0
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=truebenny003%40gmail.com&currency_code=EUR&source=url
-Tags: AzuraCast, Widget, Now Playing
+Tags: AzuraCast, Widget, Radio, Webradio, Icecast, Shoutcast, Playing, Nowplaying
 Requires at least: 4.6.0
 Tested up to: 5.2.2
 Requires PHP: 5.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Zeigt in einem Widget an, was gerade auf der AzuraCast-Instanz gespielt wird.
+Display currently played song of an AzuraCast instance in a sidebar.
 
 == Description ==
 
-Das Plugin fügt ein Widget zu WordPress hinzu, mit dem man sich von der API einer AzuraCast Station den aktuell gespielten Titel auf seinem Blog anzeigen lassen kann.
-Man kann außerdem einstellen, ob man das Cover anzeigen möchte, ob das Album angezeigt werden soll oder vielleicht nur der Titel oder der Künstler.
+This plugin adds a widget to your WordPress sidebar showing the currently played song of a AzuraCast station by their public API. You're able to configure whether to display the album, title, artist, artwork and player links.
 
 == Installation ==
 
-1. Laden die Plugin-Dateien in das Verzeichnis `/wp-content/plugins/plugins/now-playing-widget-for-azuracast-stations` hoch oder installiere das Plugin direkt über das WordPress Plugin-Menü.
-2. Aktiviere das Plugin über das Menü "Plugins" in WordPress.
-3. Unter Design->Widgets kannst du dann "AzuraCast: Now Playing" hinzufügen und konfigurieren.
+1. Upload the plugin files to your WordPress plugins directory, e.g. '/wp-content/plugins/plugins/'.
+2. Enable the plugin pressing 'Activate'.
+3. Add and configure the widget under 'Appearance' -> 'Widgets'. 
 
 == Changelog ==
 
+= 1.2.0 =
+- Data from AzuraCast is now loaded asynchronous. By default the AzuraCast-Widget will be refreshed every 5 minutes. You can change that setting in the widgets settings or can disable this feature completely.
+- I'm looking for a way to use AzuraCast's Webhook API. Perhaps new data will be loaded directly in a newer version instead of refreshing it staticly every x minutes.
+
+= 1.1.9 =
+- Fixed not working webplayer button. Spaces are evil.
+
 = 1.1.7 =
-- Wording-Fehler behoben
-- Übersetzungsfehler behoben
+- Fixed wording
+- Fixed translation issues
 
 = 1.1.6 =
-- Standardsprache auf Englisch geändert
-- Bessere Version für schmale bzw. mobile Sidebars
+- Default language is English now.
+- Improvements for small and mobile sidebars.
 
 = 1.1.4 & 1.1.5 =
-- Mehrere Fehler in der Übersetzung wurden behoben. Die Übersetzungen sollten nun vollständig funktionieren.
+- Fixed several translation issues. Should work all like a charm now.
 
 = 1.1.3 =
-- Ein Fehler wurde behoben, der dafür gesorgt hat, dass die Übersetzungen nicht geladen wurden.
+- Fixed a bug that prevented translations from loading 
 
 = 1.1.2 =
-- Übersetzungsvorlage und erste Übersetzungen hinzugefügt
+- Added translation template and first strings
 
 = 1.1.1 =
-- Deutsche Sprachversion gefixet
+- Fixed german language
 
 = 1.1.0 =
-- Beheben von etlichen Fehlern. Hinzufügen von Konfigurationsoptionen und fertigstellen des Widget-Designs
+- Fixed a couple of issues.
+- Added configuration settings.
+- Completed widget appearance.
 
 = 1.0.0 =
-- Erste, eher weniger funktionsfähige Version des Plugins
+- Initioal version, rudimentary.
