@@ -1,0 +1,23 @@
+@media (min-width: 769px) {
+  .acnp {
+    flex-direction: row;
+  }
+  
+  .acnp_cover{
+    display: inline-flex;
+    order: 1;
+    vertical-align: top;
+    justify-content: space-between;
+    align-self: flex-start;
+    margin: 0 5px 0 0;
+  }
+  
+  .acnp_text{
+    text-align: left;
+  }
+  
+  .acnp_cta input{
+    width: auto;
+    margin: 0 5px 5px 0;
+  }
+}

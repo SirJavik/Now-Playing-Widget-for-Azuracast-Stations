@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="ruffy.uiserv.de: javik.net">
+  <component name="PublishConfigData" autoUpload="Always" serverName="srv1.goitservers.com">
     <serverData>
-      <paths name="ruffy.uiserv.de: javik.net">
+      <paths name="srv1.goitservers.com">
         <serverdata>
           <mappings>
-            <mapping deploy="/staging/wp-content/plugins/now-playing-widget-fuer-azuracast-stationen" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/web/wp-content/plugins/now-playing-widget-fuer-azuracast-stationen" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

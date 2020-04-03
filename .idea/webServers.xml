@@ -2,12 +2,12 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="d1ad7c2a-823b-403e-b732-9863cad370ef" name="ruffy.uiserv.de: javik.net" url="https://staging.javik.net/">
-        <fileTransfer host="ruffy.uiserv.de" port="22" privateKey="C:\Users\javik\Nextcloud\Undead Interactive\Keys\Putty\Private\javik@Hikari.ppk" rootFolder="/var/www/javik.net" accessType="SFTP" keyPair="true">
+      <webServer id="d1ad7c2a-823b-403e-b732-9863cad370ef" name="srv1.goitservers.com" url="https://dev.javik.net/">
+        <fileTransfer host="srv1.goitservers.com" port="21" accessType="FTPS">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
-          <option name="port" value="22" />
+          <option name="port" value="21" />
         </fileTransfer>
       </webServer>
     </option>

@@ -1,0 +1,46 @@
+.acnp {
+  display: flex;
+  align-items: stretch;
+  align-content: flex-start;
+  flex-direction: column;
+}
+
+.acnp_cover{
+  display: inline-flex;
+  order: 1;
+  vertical-align: top;
+  justify-content: space-between;
+  align-self: center;
+  margin: 0 0 10px 0;
+}
+
+.acnp_cover img{
+  height: 100px;
+  width: 100px;
+}
+
+.acnp_text{
+  order: 2;
+  text-align: center;
+  flex-grow: 3;
+}
+
+.acnp_prefix{
+  font-weight: bold;
+}
+
+.acnp_cta{
+  order: 3;
+}
+
+.acnp_cta input{
+  width: 100%;
+  white-space: nowrap;
+  margin: 10px 0 0 0;
+}
+
+.acnp_prefix
+.acnp_title,
+.acnp_cta {
+  width: 100%;
+}
