@@ -5,7 +5,7 @@
       <paths name="srv1.goitservers.com">
         <serverdata>
           <mappings>
-            <mapping deploy="/web/wp-content/plugins/now-playing-widget-fuer-azuracast-stationen" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/wp-content/plugins/now-playing-widget-fuer-azuracast-stationen" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

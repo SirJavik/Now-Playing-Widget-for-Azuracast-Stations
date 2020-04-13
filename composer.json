@@ -1,0 +1,17 @@
+{
+  "name": "javik/azuracast_widget",
+  "description": "TO BE ADDED",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Javik",
+      "email": "javik@javik.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "javik\\aazuracast_plugin\\": "src/"
+    }
+  }
+}

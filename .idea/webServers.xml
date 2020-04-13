@@ -3,11 +3,11 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="d1ad7c2a-823b-403e-b732-9863cad370ef" name="srv1.goitservers.com" url="https://dev.javik.net/">
-        <fileTransfer host="srv1.goitservers.com" port="21" accessType="FTPS">
+        <fileTransfer host="srv1.goitservers.com" port="22" rootFolder="/var/www/clients/client4/web26/web" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
-          <option name="port" value="21" />
+          <option name="port" value="22" />
         </fileTransfer>
       </webServer>
     </option>

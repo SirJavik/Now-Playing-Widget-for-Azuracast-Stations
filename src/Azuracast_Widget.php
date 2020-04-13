@@ -1,111 +1,10 @@
 <?php
-/**
- *  * Plugin Name: Now playing for AzuraCast
- *  * Description: Shows in a widget what is currently being played on the AzuraCast instance.
- *  * Plugin URI: https://javik.net/azuracast-widget
- *  * Version: 2.0
- *  * Author: Javik
- *  * Author URI: https://javik.net
- *  * Text Domain: now-playing-widget-fuer-azuracast-stationen
- *  * Domain Path: /languages
- *   */
-define( 'AZURAWIDGET_VERSION', '2.0' );
 
-final class Azuracast_Widget extends WP_Widget {
 
-	/**
-	 * Make notice handling transient.
-	 */
-	public static function notice_activation_hook() {
-		set_transient( 'azuracast_install_notice', true, 5 );
-	}
+namespace javik\aazuracast_plugin;
 
-	/**
-	 * Create activation notice
-	 */
-	public static function install_notice() {
-		/* Check transient, if available display notice */
-		if( get_transient( 'azuracast_install_notice' ) ){
-			?>
-			<div class="updated notice is-dismissible">
-				<p>
-					<?php
-					// Workaround: Won't output without echo()
-					echo ( sprintf( __( 'Thank you for using this plugin! If you enjoy my plugin, would you consider buying me a <a href="%s" target="_blank"><strong>coffee</strong></a>?', 'now-playing-widget-fuer-azuracast-stationen' ),
-						'https://paypal.me/benny003'
-					) );
-					?>
-				</p>
-			</div>
-			<?php
-			/* Delete transient, only display this notice once. */
-			delete_transient( 'azuracast_install_notice' );
-		}
-	}
 
-	public static function action_links( $links ) {
-
-		$links = array_merge( array(
-			'<a target="_blank" href="https://paypal.me/benny003">' . __( 'Donation', 'now-playing-widget-fuer-azuracast-stationen' ) . '</a>',
-			'<a target="_blank" href="https://github.com/SirJavik/Now-Playing-Widget-for-Azuracast-Stations">' . __( 'GitHub', 'now-playing-widget-fuer-azuracast-stationen' ) . '</a>'
-		), $links );
-
-		return $links;
-	}
-
-	/**
-	 * Register plugin actions to WordPress
-	 */
-	public static function register_actions() {
-		add_action( 'admin_notices', array( 'Azuracast_Widget', 'install_notice' ) );
-		add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( 'Azuracast_Widget', 'action_links' ) );
-		add_action( 'widgets_init', array( 'Azuracast_Widget', 'register_custom_widget' ) );
-		add_action( 'wp_enqueue_scripts', array( 'Azuracast_Widget', 'register_styles' ) );
-		add_action( 'wp_enqueue_scripts', array( 'Azuracast_Widget', 'register_scripts' ) );
-		add_action( 'plugins_loaded', array( 'Azuracast_Widget', 'load_plugin_textdomain' ) );
-	}
-
-	/**
-	 * Registers widget to wordpress
-	 */
-	public static function register_custom_widget() {
-		register_widget( 'Azuracast_Widget' );
-	}
-
-	/**
-	 * Enqueuing widget styles
-	 */
-	public static function register_styles() {
-		wp_register_style(
-			'azurawidget',
-			plugin_dir_url( __FILE__ ) . "css/azuracast-widget.css",
-			null,
-			AZURAWIDGET_VERSION
-		);
-		wp_enqueue_style( 'azurawidget' );
-	}
-
-	/**
-	 * Enqueuing widget scripts
-	 */
-	public static function register_scripts() {
-		wp_enqueue_script(
-			'azurawidget-asynchron',
-			plugin_dir_url( __FILE__ ) . 'js/azurawidget-asynchron.js',
-			array( "jquery" ),
-			AZURAWIDGET_VERSION,
-			true
-		);
-	}
-
-	/**
-	 * Loads textdomain
-	 */
-	public static function load_plugin_textdomain() {
-		load_plugin_textdomain( 'now-playing-widget-fuer-azuracast-stationen', false, basename( dirname( __FILE__ ) ) . '/languages/' );
-	}
-
-	// Widget
+final class Azuracast_Widget extends \WP_Widget {
 
 	/**
 	 * Register plugin.
@@ -140,10 +39,10 @@ final class Azuracast_Widget extends WP_Widget {
 			'show_cover'        => '1',
 			'show_track'        => '1',
 			'show_artist'       => '1',
-			'show_album'        => '0',
 			'station_id'        => '1',
 			'own_player_btn'    => '1',
-			'webplayer_btn'     => '1'
+			'webplayer_btn'     => '1',
+			'orientation'       => 'default'
 		);
 
 		// Parse current settings with defaults
@@ -151,7 +50,7 @@ final class Azuracast_Widget extends WP_Widget {
 
 		<?php // Widget Title ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
 			       value="<?php echo esc_attr( $title ); ?>"/>
@@ -159,7 +58,7 @@ final class Azuracast_Widget extends WP_Widget {
 
 		<?php // AzuraCast Instance ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'azuracast_instanz' ) ); ?>"><?php _e( 'AzuraCast', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'azuracast_instanz' ) ); ?>"><?php _e( 'AzuraCast', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'azuracast_instanz' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'azuracast_instanz' ) ); ?>" type="text"
 			       value="<?php echo esc_attr( $azuracast_instanz ); ?>"/>
@@ -168,7 +67,7 @@ final class Azuracast_Widget extends WP_Widget {
 
 		<?php // Own Player Link ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'own_player_link' ) ); ?>"><?php _e( 'Own player link', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'own_player_link' ) ); ?>"><?php _e( 'Own player link', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'own_player_link' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'own_player_link' ) ); ?>" type="text"
 			       value="<?php echo esc_attr( $own_player_link ); ?>"/>
@@ -176,7 +75,7 @@ final class Azuracast_Widget extends WP_Widget {
 
 		<?php // Webplayer Link ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'webplayer_link' ) ); ?>"><?php _e( 'Webplayer link', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'webplayer_link' ) ); ?>"><?php _e( 'Webplayer link', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'webplayer_link' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'webplayer_link' ) ); ?>" type="text"
 			       value="<?php echo esc_attr( $webplayer_link ); ?>"/>
@@ -184,7 +83,7 @@ final class Azuracast_Widget extends WP_Widget {
 
 		<?php // Station ID ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'station_id' ) ); ?>"><?php _e( 'Station ID', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'station_id' ) ); ?>"><?php _e( 'Station ID', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'station_id' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'station_id' ) ); ?>" type="number"
 			       value="<?php echo esc_attr( $station_id ); ?>"/>
@@ -192,10 +91,25 @@ final class Azuracast_Widget extends WP_Widget {
 
 		<?php // Async timer ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'async_timer' ) ); ?>"><?php _e( 'Asynchronous refresh time (in minutes)', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'async_timer' ) ); ?>"><?php _e( 'Asynchronous refresh time (in minutes)', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'async_timer' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'async_timer' ) ); ?>" type="number"
 			       value="<?php echo esc_attr( $async_timer ); ?>"/>
+		</p>
+
+		<?php // Orientation ?>
+		<p>
+			<label for="<?php echo $this->get_field_id('orientation'); ?>">Orientation:
+				<select class='widefat' id="<?php echo $this->get_field_id('orientation'); ?>"
+				        name="<?php echo $this->get_field_name('orientation'); ?>" type="text">
+					<option value='left'<?php echo ($orientation=='left')?'selected':''; ?>>
+						left
+					</option>
+					<option value='right'<?php echo ($orientation=='right')?'selected':''; ?>>
+						right
+					</option>
+				</select>
+			</label>
 		</p>
 
 		<?php // Checkbox ?>
@@ -228,13 +142,6 @@ final class Azuracast_Widget extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_artist' ) ); ?>"><?php _e( 'Show artist', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
 			<br>
 
-			<?php // Show Album ?>
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_album' ) ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'show_album' ) ); ?>" type="checkbox"
-			       value="1" <?php checked( '1', $show_album ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'show_album' ) ); ?>"><?php _e( 'Show album', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
-			<br>
-
 			<?php // Show Webplayer Button ?>
 			<input id="<?php echo esc_attr( $this->get_field_id( 'webplayer_btn' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'webplayer_btn' ) ); ?>" type="checkbox"
@@ -261,24 +168,25 @@ final class Azuracast_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance                      = $old_instance;
+		$instance                       = $old_instance;
 
-		$instance['title']             = isset( $new_instance['title'] ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
-		$instance['azuracast_instanz'] = isset( $new_instance['azuracast_instanz'] ) ? wp_strip_all_tags( $new_instance['azuracast_instanz'] ) : '';
+		$instance['title']              = isset( $new_instance['title'] ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
+		$instance['azuracast_instanz']  = isset( $new_instance['azuracast_instanz'] ) ? wp_strip_all_tags( $new_instance['azuracast_instanz'] ) : '';
 
-		$instance['own_player_link'] = isset( $new_instance['own_player_link'] ) ? wp_strip_all_tags( $new_instance['own_player_link'] ) : '';
-		$instance['webplayer_link']  = isset( $new_instance['webplayer_link'] ) ? wp_strip_all_tags( $new_instance['webplayer_link'] ) : '';
-		$instance['station_id']      = isset( $new_instance['station_id'] ) ? wp_strip_all_tags( $new_instance['station_id'] ) : '';
-		$instance['async_timer']      = isset( $new_instance['async_timer'] ) ? wp_strip_all_tags( $new_instance['async_timer'] ) : '';
+		$instance['own_player_link']    = isset( $new_instance['own_player_link'] ) ? wp_strip_all_tags( $new_instance['own_player_link'] ) : '';
+		$instance['webplayer_link']     = isset( $new_instance['webplayer_link'] ) ? wp_strip_all_tags( $new_instance['webplayer_link'] ) : '';
+		$instance['station_id']         = isset( $new_instance['station_id'] ) ? wp_strip_all_tags( $new_instance['station_id'] ) : '';
+		$instance['async_timer']        = isset( $new_instance['async_timer'] ) ? wp_strip_all_tags( $new_instance['async_timer'] ) : '';
 
-		$instance['do_async']  = isset( $new_instance['do_async'] ) ? 1 : false;
-		$instance['show_cover']  = isset( $new_instance['show_cover'] ) ? 1 : false;
-		$instance['show_track']  = isset( $new_instance['show_track'] ) ? 1 : false;
-		$instance['show_artist'] = isset( $new_instance['show_artist'] ) ? 1 : false;
-		$instance['show_album']  = isset( $new_instance['show_album'] ) ? 1 : false;
+		$instance['do_async']           = isset( $new_instance['do_async'] ) ? 1 : false;
+		$instance['show_cover']         = isset( $new_instance['show_cover'] ) ? 1 : false;
+		$instance['show_track']         = isset( $new_instance['show_track'] ) ? 1 : false;
+		$instance['show_artist']        = isset( $new_instance['show_artist'] ) ? 1 : false;
 
-		$instance['own_player_btn'] = isset( $new_instance['own_player_btn'] ) ? 1 : false;
-		$instance['webplayer_btn']  = isset( $new_instance['webplayer_btn'] ) ? 1 : false;
+		$instance['own_player_btn']     = isset( $new_instance['own_player_btn'] ) ? 1 : false;
+		$instance['webplayer_btn']      = isset( $new_instance['webplayer_btn'] ) ? 1 : false;
+
+		$instance['orientation']        = $new_instance['orientation'];
 
 		return $instance;
 	}
@@ -291,27 +199,33 @@ final class Azuracast_Widget extends WP_Widget {
 	 *
 	 */
 	public function widget( $args, $instance ) {
+
 		extract( $args );
 
 		/* ------------------------------------------------------------------------ *
 		 * Loading options
 		 * ------------------------------------------------------------------------ */
-		$title             = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
-		$azuracast_instanz = isset( $instance['azuracast_instanz'] ) ? $instance['azuracast_instanz'] : '';
-		$station_id        = isset( $instance['station_id'] ) ? $instance['station_id'] : '';
+		$title              = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
+		$azuracast_instanz  = isset( $instance['azuracast_instanz'] ) ? $instance['azuracast_instanz'] : '';
+		$station_id         = isset( $instance['station_id'] ) ? $instance['station_id'] : '';
 		$async_timer        = isset( $instance['async_timer'] ) ? $instance['async_timer'] : '';
 
-		$do_async  = ! empty( $instance['do_async'] ) ? $instance['do_async'] : false;
-		$show_cover  = ! empty( $instance['show_cover'] ) ? $instance['show_cover'] : false;
-		$show_track  = ! empty( $instance['show_track'] ) ? $instance['show_track'] : false;
-		$show_artist = ! empty( $instance['show_artist'] ) ? $instance['show_artist'] : false;
-		$show_album  = ! empty( $instance['show_album'] ) ? $instance['show_album'] : false;
+		$do_async           = ! empty( $instance['do_async'] ) ? $instance['do_async'] : false;
+		$show_cover         = ! empty( $instance['show_cover'] ) ? $instance['show_cover'] : false;
+		$show_track         = ! empty( $instance['show_track'] ) ? $instance['show_track'] : false;
+		$show_artist        = ! empty( $instance['show_artist'] ) ? $instance['show_artist'] : false;
 
-		$own_player_btn = ! empty( $instance['own_player_btn'] ) ? $instance['own_player_btn'] : false;
-		$webplayer_btn  = ! empty( $instance['webplayer_btn'] ) ? $instance['webplayer_btn'] : false;
+		$own_player_btn     = ! empty( $instance['own_player_btn'] ) ? $instance['own_player_btn'] : false;
+		$webplayer_btn      = ! empty( $instance['webplayer_btn'] ) ? $instance['webplayer_btn'] : false;
 
-		$own_player_link = ! empty( $instance['own_player_link'] ) ? $instance['own_player_link'] : false;
-		$webplayer_link  = ! empty( $instance['webplayer_link'] ) ? $instance['webplayer_link'] : false;
+		$own_player_link    = ! empty( $instance['own_player_link'] ) ? $instance['own_player_link'] : false;
+		$webplayer_link     = ! empty( $instance['webplayer_link'] ) ? $instance['webplayer_link'] : false;
+
+		$orientation  = empty($instance['orientation']) ? '' : $instance['orientation'];
+		wp_enqueue_style( 'azuracast-orientation',
+						     plugin_dir_url( AZURAWIDGET_FILE ) . "assets/css/azuracast-widget-$orientation.css",
+							"azurawidget",
+							AZURAWIDGET_VERSION);
 
 		// WordPress core before_widget hook (always include )
 		echo $before_widget;
@@ -378,8 +292,6 @@ final class Azuracast_Widget extends WP_Widget {
 				</div>
 			</div>
 
-			</div>
-			
 			<?php
 		}
 
@@ -392,7 +304,3 @@ final class Azuracast_Widget extends WP_Widget {
 	}
 
 }
-register_activation_hook( __FILE__, array('Azuracast_Widget', 'notice_activation_hook') );
-
-// Plugin actions
-Azuracast_Widget::register_actions();
