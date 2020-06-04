@@ -26,6 +26,9 @@ Important: By version 2.0.0 you need to use the station shortcode instead of sta
 
 ## Changelog 
 
+### 2.0.1
+- Disabled Gutenberg (Will be added later)
+
 ### 2.0.0
 - Orientation support
 - Websocket support
