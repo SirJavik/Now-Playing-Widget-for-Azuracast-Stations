@@ -3,13 +3,13 @@
  *  * Plugin Name: Now playing for AzuraCast
  *  * Description: Shows in a widget what is currently being played on the AzuraCast instance.
  *  * Plugin URI: https://javik.net/azuracast-widget
- *  * Version: 2.0
+ *  * Version: 2.0.1
  *  * Author: Javik
  *  * Author URI: https://javik.net
  *  * Text Domain: now-playing-widget-fuer-azuracast-stationen
  *  * Domain Path: /languages
  *   */
-define( 'AZURAWIDGET_VERSION', '2.0' );
+define( 'AZURAWIDGET_VERSION', '2.0.1' );
 define( 'AZURAWIDGET_FILE', __FILE__);
 
 require_once( __DIR__ . "/vendor/autoload.php" );
