@@ -11,7 +11,10 @@
   ],
   "autoload": {
     "psr-4": {
-      "javik\\aazuracast_plugin\\": "src/"
+      "javik\\azuracast_plugin\\": "src/"
     }
+  },
+  "require": {
+    "ext-json": "*"
   }
 }

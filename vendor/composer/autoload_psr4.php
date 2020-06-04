@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'javik\\aazuracast_plugin\\' => array($baseDir . '/src'),
+    'javik\\azuracast_plugin\\' => array($baseDir . '/src'),
 );

@@ -9,12 +9,12 @@ class ComposerStaticInitb06ab7315a4023f994891379e0cd6b19
     public static $prefixLengthsPsr4 = array (
         'j' => 
         array (
-            'javik\\aazuracast_plugin\\' => 24,
+            'javik\\azuracast_plugin\\' => 23,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'javik\\aazuracast_plugin\\' => 
+        'javik\\azuracast_plugin\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

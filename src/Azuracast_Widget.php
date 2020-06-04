@@ -1,8 +1,7 @@
 <?php
 
 
-namespace javik\aazuracast_plugin;
-
+namespace javik\azuracast_plugin;
 
 final class Azuracast_Widget extends \WP_Widget {
 
@@ -39,6 +38,7 @@ final class Azuracast_Widget extends \WP_Widget {
 			'show_cover'        => '1',
 			'show_track'        => '1',
 			'show_artist'       => '1',
+			'show_album'        => '0',
 			'station_id'        => '1',
 			'own_player_btn'    => '1',
 			'webplayer_btn'     => '1',
@@ -64,6 +64,13 @@ final class Azuracast_Widget extends \WP_Widget {
 			       value="<?php echo esc_attr( $azuracast_instanz ); ?>"/>
 		</p>
 
+		<?php // Station Shortcode ?>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'shortcode' ) ); ?>"><?php _e( 'Shortcode', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
+            <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'shortcode' ) ); ?>"
+                   name="<?php echo esc_attr( $this->get_field_name( 'shortcode' ) ); ?>" type="text"
+                   value="<?php echo esc_attr( $shortcode ); ?>"/>
+        </p>
 
 		<?php // Own Player Link ?>
 		<p>
@@ -81,32 +88,19 @@ final class Azuracast_Widget extends \WP_Widget {
 			       value="<?php echo esc_attr( $webplayer_link ); ?>"/>
 		</p>
 
-		<?php // Station ID ?>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'station_id' ) ); ?>"><?php _e( 'Station ID', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'station_id' ) ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'station_id' ) ); ?>" type="number"
-			       value="<?php echo esc_attr( $station_id ); ?>"/>
-		</p>
-
-		<?php // Async timer ?>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'async_timer' ) ); ?>"><?php _e( 'Asynchronous refresh time (in minutes)', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:</label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'async_timer' ) ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'async_timer' ) ); ?>" type="number"
-			       value="<?php echo esc_attr( $async_timer ); ?>"/>
-		</p>
-
 		<?php // Orientation ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('orientation'); ?>">Orientation:
 				<select class='widefat' id="<?php echo $this->get_field_id('orientation'); ?>"
 				        name="<?php echo $this->get_field_name('orientation'); ?>" type="text">
+                    <option value='center'<?php echo ($orientation=='left')?'selected':''; ?>>
+						<?php _e( 'Center', 'now-playing-widget-fuer-azuracast-stationen' ); ?>
+                    </option>
 					<option value='left'<?php echo ($orientation=='left')?'selected':''; ?>>
-						left
+                        <?php _e( 'Left', 'now-playing-widget-fuer-azuracast-stationen' ); ?>
 					</option>
 					<option value='right'<?php echo ($orientation=='right')?'selected':''; ?>>
-						right
+						<?php _e( 'Right', 'now-playing-widget-fuer-azuracast-stationen' ); ?>
 					</option>
 				</select>
 			</label>
@@ -114,13 +108,6 @@ final class Azuracast_Widget extends \WP_Widget {
 
 		<?php // Checkbox ?>
 		<p>
-			<?php // Do async ?>
-			<input id="<?php echo esc_attr( $this->get_field_id( 'do_async' ) ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'do_async' ) ); ?>" type="checkbox"
-			       value="1" <?php checked( '1', $do_async ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'do_async' ) ); ?>"><?php _e( 'Load information asynchronous', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
-			<br>
-
 			<?php // Show Cover ?>
 			<input id="<?php echo esc_attr( $this->get_field_id( 'show_cover' ) ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'show_cover' ) ); ?>" type="checkbox"
@@ -141,6 +128,20 @@ final class Azuracast_Widget extends \WP_Widget {
 			       value="1" <?php checked( '1', $show_artist ); ?> />
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_artist' ) ); ?>"><?php _e( 'Show artist', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
 			<br>
+
+			<?php // Show Album ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_album' ) ); ?>"
+			       name="<?php echo esc_attr( $this->get_field_name( 'show_album' ) ); ?>" type="checkbox"
+			       value="1" <?php checked( '1', $show_album ); ?> />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'show_album' ) ); ?>"><?php _e( 'Show album', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+			<br>
+
+			<?php // Use Websocket ?>
+            <input id="<?php echo esc_attr( $this->get_field_id( 'use_websocket' ) ); ?>"
+                   name="<?php echo esc_attr( $this->get_field_name( 'use_websocket' ) ); ?>" type="checkbox"
+                   value="1" <?php checked( '1', $use_websocket ); ?> />
+            <label for="<?php echo esc_attr( $this->get_field_id( 'use_websocket' ) ); ?>"><?php _e( 'Use Websocket', 'now-playing-widget-fuer-azuracast-stationen' ); ?></label>
+            <br>
 
 			<?php // Show Webplayer Button ?>
 			<input id="<?php echo esc_attr( $this->get_field_id( 'webplayer_btn' ) ); ?>"
@@ -175,13 +176,14 @@ final class Azuracast_Widget extends \WP_Widget {
 
 		$instance['own_player_link']    = isset( $new_instance['own_player_link'] ) ? wp_strip_all_tags( $new_instance['own_player_link'] ) : '';
 		$instance['webplayer_link']     = isset( $new_instance['webplayer_link'] ) ? wp_strip_all_tags( $new_instance['webplayer_link'] ) : '';
-		$instance['station_id']         = isset( $new_instance['station_id'] ) ? wp_strip_all_tags( $new_instance['station_id'] ) : '';
-		$instance['async_timer']        = isset( $new_instance['async_timer'] ) ? wp_strip_all_tags( $new_instance['async_timer'] ) : '';
+		$instance['shortcode']          = isset( $new_instance['shortcode'] ) ? wp_strip_all_tags( $new_instance['shortcode'] ) : '';
 
-		$instance['do_async']           = isset( $new_instance['do_async'] ) ? 1 : false;
 		$instance['show_cover']         = isset( $new_instance['show_cover'] ) ? 1 : false;
 		$instance['show_track']         = isset( $new_instance['show_track'] ) ? 1 : false;
 		$instance['show_artist']        = isset( $new_instance['show_artist'] ) ? 1 : false;
+		$instance['show_album']         = isset( $new_instance['show_album'] ) ? 1 : false;
+
+		$instance['use_websocket']      = isset( $new_instance['use_websocket'] ) ? 1 : false;
 
 		$instance['own_player_btn']     = isset( $new_instance['own_player_btn'] ) ? 1 : false;
 		$instance['webplayer_btn']      = isset( $new_instance['webplayer_btn'] ) ? 1 : false;
@@ -207,13 +209,14 @@ final class Azuracast_Widget extends \WP_Widget {
 		 * ------------------------------------------------------------------------ */
 		$title              = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
 		$azuracast_instanz  = isset( $instance['azuracast_instanz'] ) ? $instance['azuracast_instanz'] : '';
-		$station_id         = isset( $instance['station_id'] ) ? $instance['station_id'] : '';
-		$async_timer        = isset( $instance['async_timer'] ) ? $instance['async_timer'] : '';
+		$shortcode          = isset( $instance['shortcode'] ) ? $instance['shortcode'] : '';
 
-		$do_async           = ! empty( $instance['do_async'] ) ? $instance['do_async'] : false;
 		$show_cover         = ! empty( $instance['show_cover'] ) ? $instance['show_cover'] : false;
 		$show_track         = ! empty( $instance['show_track'] ) ? $instance['show_track'] : false;
 		$show_artist        = ! empty( $instance['show_artist'] ) ? $instance['show_artist'] : false;
+		$show_album         = ! empty( $instance['show_album'] ) ? $instance['show_album'] : false;
+
+		$use_websocket         = ! empty( $instance['use_websocket'] ) ? $instance['use_websocket'] : false;
 
 		$own_player_btn     = ! empty( $instance['own_player_btn'] ) ? $instance['own_player_btn'] : false;
 		$webplayer_btn      = ! empty( $instance['webplayer_btn'] ) ? $instance['webplayer_btn'] : false;
@@ -222,10 +225,13 @@ final class Azuracast_Widget extends \WP_Widget {
 		$webplayer_link     = ! empty( $instance['webplayer_link'] ) ? $instance['webplayer_link'] : false;
 
 		$orientation  = empty($instance['orientation']) ? '' : $instance['orientation'];
-		wp_enqueue_style( 'azuracast-orientation',
-						     plugin_dir_url( AZURAWIDGET_FILE ) . "assets/css/azuracast-widget-$orientation.css",
-							"azurawidget",
-							AZURAWIDGET_VERSION);
+
+		if($orientation != "center") {
+			wp_enqueue_style( 'azuracast-orientation',
+				plugin_dir_url( AZURAWIDGET_FILE ) . "assets/css/azuracast-widget-$orientation.css",
+				"azurawidget",
+				AZURAWIDGET_VERSION);
+        }
 
 		// WordPress core before_widget hook (always include )
 		echo $before_widget;
@@ -239,9 +245,9 @@ final class Azuracast_Widget extends \WP_Widget {
 		}
 
 		if ( $azuracast_instanz ) {
-			$nowplaying = $azuracast_instanz . "/api/nowplaying/" . $station_id;
+			$nowplaying = $azuracast_instanz . "/api/nowplaying/" . $shortcode;
 
-			$response = wp_remote_get( $nowplaying, array( 'timeout' => 120, 'httpversion' => '2.0' ) );
+			$response = wp_remote_get( $nowplaying, array( 'timeout' => 120, 'httpversion' => '1.1' ) );
 			$body     = wp_remote_retrieve_body( $response );
 
 			$data = json_decode( $body, true );

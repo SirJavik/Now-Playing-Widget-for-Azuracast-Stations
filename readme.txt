@@ -5,7 +5,7 @@ Stable tag: 2.0.0
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=truebenny003%40gmail.com&currency_code=EUR&source=url
 Tags: AzuraCast, Widget, Radio, Webradio, Icecast, Shoutcast, Playing, Nowplaying
 Requires at least: 4.6.0
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html

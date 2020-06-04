@@ -66,18 +66,13 @@ final class Azuracast_Plugin {
 		add_action( 'wp_enqueue_scripts', array( 'Azuracast_Plugin', 'register_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( 'Azuracast_Plugin', 'register_scripts' ) );
 		add_action( 'plugins_loaded', array( 'Azuracast_Plugin', 'load_plugin_textdomain' ) );
-
-		/* ------------------------------------------------------------------------ *
-		 * Gutenberg
-		 * ------------------------------------------------------------------------ */
-		add_action( 'init', array( 'javik\aazuracast_plugin\Azuracast_Gutenberg' , 'register_block' ) );
 	}
 
 	/**
 	 * Registers widget to wordpress
 	 */
 	public static function register_custom_widget() {
-		register_widget( 'javik\aazuracast_plugin\Azuracast_Widget' );
+		register_widget( 'javik\azuracast_plugin\Azuracast_Widget' );
 	}
 
 	/**
@@ -99,8 +94,16 @@ final class Azuracast_Plugin {
 	 */
 	public static function register_scripts() {
 		wp_enqueue_script(
+			'nchansubscriber',
+			plugin_dir_url( __FILE__ ) . 'assets/js/NchanSubscriber.js',
+			array( "jquery" ),
+			AZURAWIDGET_VERSION,
+			true
+		);
+
+		wp_enqueue_script(
 			'azurawidget-asynchron',
-			plugin_dir_url( __FILE__ ) . 'js/azurawidget-asynchron.js',
+			plugin_dir_url( __FILE__ ) . 'assets/js/azurawidget-asynchron.js',
 			array( "jquery" ),
 			AZURAWIDGET_VERSION,
 			true
