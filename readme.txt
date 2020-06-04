@@ -23,6 +23,10 @@ This plugin adds a widget to your WordPress sidebar showing the currently played
 3. Add and configure the widget under 'Appearance' -> 'Widgets'. 
 
 == Changelog ==
+= 2.0.0 =
+- Orientation support
+- Websocket support
+- Complete rewrite of plugin
 
 = 1.2.0 =
 - Data from AzuraCast is now loaded asynchronous. By default the AzuraCast-Widget will be refreshed every 5 minutes. You can change that setting in the widgets settings or can disable this feature completely.

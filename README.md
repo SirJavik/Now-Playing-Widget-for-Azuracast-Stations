@@ -5,7 +5,7 @@ Stable tag: 2.0.0
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=truebenny003%40gmail.com&currency_code=EUR&source=url
 Tags: AzuraCast, Widget, Radio, Webradio, Icecast, Shoutcast, Playing, Nowplaying
 Requires at least: 4.6.0
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -23,6 +23,11 @@ This plugin adds a widget to your WordPress sidebar showing the currently played
 3. Add and configure the widget under 'Appearance' -> 'Widgets'. 
 
 ## Changelog 
+
+### 2.0.0
+- Orientation support
+- Websocket support
+- Complete rewrite of plugin
 
 ### 1.2.0
 - Data from AzuraCast is now loaded asynchronous. By default the AzuraCast-Widget will be refreshed every 5 minutes. You can change that setting in the widgets settings or can disable this feature completely.
