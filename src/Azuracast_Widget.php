@@ -90,7 +90,7 @@ final class Azuracast_Widget extends \WP_Widget {
 
 		<?php // Orientation ?>
 		<p>
-			<label for="<?php echo $this->get_field_id('orientation'); ?>">Orientation:
+			<label for="<?php echo $this->get_field_id('orientation'); ?>"><?php _e( 'Orientation', 'now-playing-widget-fuer-azuracast-stationen' ); ?>:
 				<select class='widefat' id="<?php echo $this->get_field_id('orientation'); ?>"
 				        name="<?php echo $this->get_field_name('orientation'); ?>" type="text">
                     <option value='center'<?php echo ($orientation=='left')?'selected':''; ?>>

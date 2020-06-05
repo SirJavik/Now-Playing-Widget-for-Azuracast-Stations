@@ -15,7 +15,7 @@ Display currently played song of an AzuraCast instance in a sidebar.
 ## Description
 
 This plugin adds a widget to your WordPress sidebar showing the currently played song of a AzuraCast station by their public API. You're able to configure whether to display the album, title, artist, artwork and player links.
-Important: By version 2.0.0 you need to use the station shortcode instead of station tag. It's necessary because AzuraCast's Live Now-Playing Api won't support station ids. To use WebSockets you need to enable WebSocket Support in the administration interface of your AzuraCast instance.
+Important: By version 2.0.0 you need to use the station shortcode instead of station id. It's necessary because AzuraCast's Live Now-Playing Api won't support station ids. To use WebSockets you need to enable WebSocket Support in the administration interface of your AzuraCast instance.
 
 
 ## Installation 
