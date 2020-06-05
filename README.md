@@ -25,6 +25,10 @@ Important: By version 2.0.0 you need to use the station shortcode instead of sta
 3. Add and configure the widget under 'Appearance' -> 'Widgets'. 
 
 ## Changelog 
+### 2.0.2
+- Changed typo in readme
+- Added missing translation string
+
 
 ### 2.0.1
 - Disabled Gutenberg (Will be added later)
