@@ -1,7 +1,7 @@
 === Now playing for AzuraCast ===
 
-Contributors: sirjavik, se-schwarz
-Stable tag: 2.0.2
+Contributors: sirjavik, se-schwarz, goinput
+Stable tag: 2.0.3
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=truebenny003%40gmail.com&currency_code=EUR&source=url
 Tags: AzuraCast, Widget, Radio, Webradio, Icecast, Shoutcast, Playing, Nowplaying
 Requires at least: 4.6.0

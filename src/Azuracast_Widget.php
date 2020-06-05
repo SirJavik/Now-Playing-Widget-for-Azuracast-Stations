@@ -33,8 +33,8 @@ final class Azuracast_Widget extends \WP_Widget {
 			'azuracast_instanz' => 'https://example.com/azuracast',
 			'webplayer_link'    => 'https://example.com/online',
 			'own_player_link'   => 'https://example.com/online.m3u',
-			'do_async'          => 1,
-			'async_timer'       => 5,
+			'shortcode'         => '',
+			'use_websocket'    => '0',
 			'show_cover'        => '1',
 			'show_track'        => '1',
 			'show_artist'       => '1',
@@ -42,7 +42,7 @@ final class Azuracast_Widget extends \WP_Widget {
 			'station_id'        => '1',
 			'own_player_btn'    => '1',
 			'webplayer_btn'     => '1',
-			'orientation'       => 'default'
+			'orientation'       => 'center'
 		);
 
 		// Parse current settings with defaults
