@@ -1,7 +1,7 @@
 <?php
 
 
-namespace javik\aazuracast_plugin;
+namespace javik\azuracast_plugin;
 
 
 class Azuracast_Elementor {

@@ -60,6 +60,7 @@ final class Azuracast_Plugin {
 	 * Register plugin actions to WordPress
 	 */
 	public static function register_actions() {
+		add_action('init', array( 'javik\azuracast_plugin\Azuracast_Shortcode', 'InitShortcode' ));
 		add_action( 'admin_notices', array( 'Azuracast_Plugin', 'install_notice' ) );
 		add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( 'Azuracast_Plugin', 'action_links' ) );
 		add_action( 'widgets_init', array( 'Azuracast_Plugin', 'register_custom_widget' ) );
