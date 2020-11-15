@@ -2,7 +2,7 @@
 
 Contributors: sirjavik, se-schwarz, goinput
 
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=truebenny003%40gmail.com&currency_code=EUR&source=url
 
