@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="srv1.goitservers.com">
+  <component name="PublishConfigData" autoUpload="Always" serverName="dev.javik.net">
     <serverData>
-      <paths name="srv1.goitservers.com">
+      <paths name="dev.javik.net">
         <serverdata>
           <mappings>
             <mapping deploy="/wp-content/plugins/now-playing-widget-fuer-azuracast-stationen" local="$PROJECT_DIR$" web="/" />

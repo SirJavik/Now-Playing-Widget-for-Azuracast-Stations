@@ -69,7 +69,9 @@
     if (typeof module === "object" && module != null && module.exports) {
         module.exports = newModule;
     } else if (typeof define === "function" && define.amd) {
-        define(function () { return newModule; });
+        define(function () {
+            return newModule;
+        });
     } else {
         global[moduleName] = newModule;
     }
@@ -77,29 +79,115 @@
 })(typeof window !== "undefined" ? window : this, "NchanSubscriber", function factory(global, undefined) { // eslint-disable-line
 
     // https://github.com/yanatan16/nanoajax
-    var nanoajax={};
-    (function(){var e=["responseType","withCredentials","timeout","onprogress"];nanoajax.ajax=function(r,o){var a=r.headers||{},u=r.body,s=r.method||(u?"POST":"GET"),i=false;var f=t(r.cors);function l(e,t){return function(){if(!i){o(f.status===undefined?e:f.status,f.status===0?"Error":f.response||f.responseText||t,f);i=true}}}f.open(s,r.url,true);var d=f.onload=l(200);f.onreadystatechange=function(){if(f.readyState===4)d()};f.onerror=l(null,"Error");f.ontimeout=l(null,"Timeout");f.onabort=l(null,"Abort");if(u){n(a,"X-Requested-With","XMLHttpRequest");if(!global.FormData||!(u instanceof global.FormData)){n(a,"Content-Type","application/x-www-form-urlencoded")}}for(var p=0,c=e.length,g;p<c;p++){g=e[p];if(r[g]!==undefined)f[g]=r[g]}for(var g in a)f.setRequestHeader(g,a[g]);f.send(u);return f};function t(e){if(e&&global.XDomainRequest&&!/MSIE 1/.test(navigator.userAgent))return new XDomainRequest;if(global.XMLHttpRequest)return new XMLHttpRequest}function n(e,t,n){e[t]=e[t]||n}})(); // eslint-disable-line
+    var nanoajax = {};
+    (function () {
+        var e = ["responseType", "withCredentials", "timeout", "onprogress"];
+        nanoajax.ajax = function (r, o) {
+            var a = r.headers || {}, u = r.body, s = r.method || (u ? "POST" : "GET"), i = false;
+            var f = t(r.cors);
+
+            function l(e, t) {
+                return function () {
+                    if (!i) {
+                        o(f.status === undefined ? e : f.status, f.status === 0 ? "Error" : f.response || f.responseText || t, f);
+                        i = true
+                    }
+                }
+            }
+
+            f.open(s, r.url, true);
+            var d = f.onload = l(200);
+            f.onreadystatechange = function () {
+                if (f.readyState === 4) d()
+            };
+            f.onerror = l(null, "Error");
+            f.ontimeout = l(null, "Timeout");
+            f.onabort = l(null, "Abort");
+            if (u) {
+                n(a, "X-Requested-With", "XMLHttpRequest");
+                if (!global.FormData || !(u instanceof global.FormData)) {
+                    n(a, "Content-Type", "application/x-www-form-urlencoded")
+                }
+            }
+            for (var p = 0, c = e.length, g; p < c; p++) {
+                g = e[p];
+                if (r[g] !== undefined) f[g] = r[g]
+            }
+            for (var g in a) f.setRequestHeader(g, a[g]);
+            f.send(u);
+            return f
+        };
+
+        function t(e) {
+            if (e && global.XDomainRequest && !/MSIE 1/.test(navigator.userAgent)) return new XDomainRequest;
+            if (global.XMLHttpRequest) return new XMLHttpRequest
+        }
+
+        function n(e, t, n) {
+            e[t] = e[t] || n
+        }
+    })(); // eslint-disable-line
 
 
     // https://github.com/component/emitter
-    function Emitter(t){return t?mixin(t):void 0}function mixin(t){for(var e in Emitter.prototype)t[e]=Emitter.prototype[e];return t}Emitter.prototype.on=Emitter.prototype.addEventListener=function(t,e){return this._callbacks=this._callbacks||{},(this._callbacks["$"+t]=this._callbacks["$"+t]||[]).push(e),this},Emitter.prototype.once=function(t,e){function i(){this.off(t,i),e.apply(this,arguments)}return i.fn=e,this.on(t,i),this},Emitter.prototype.off=Emitter.prototype.removeListener=Emitter.prototype.removeAllListeners=Emitter.prototype.removeEventListener=function(t,e){if(this._callbacks=this._callbacks||{},0==arguments.length)return this._callbacks={},this;var i=this._callbacks["$"+t];if(!i)return this;if(1==arguments.length)return delete this._callbacks["$"+t],this;for(var r,s=0;s<i.length;s++)if(r=i[s],r===e||r.fn===e){i.splice(s,1);break}return this},Emitter.prototype.emit=function(t){this._callbacks=this._callbacks||{};var e=[].slice.call(arguments,1),i=this._callbacks["$"+t];if(i){i=i.slice(0);for(var r=0,s=i.length;s>r;++r)i[r].apply(this,e)}return this},Emitter.prototype.listeners=function(t){return this._callbacks=this._callbacks||{},this._callbacks["$"+t]||[]},Emitter.prototype.hasListeners=function(t){return!!this.listeners(t).length};// eslint-disable-line
+    function Emitter(t) {
+        return t ? mixin(t) : void 0
+    }
+
+    function mixin(t) {
+        for (var e in Emitter.prototype) t[e] = Emitter.prototype[e];
+        return t
+    }
+
+    Emitter.prototype.on = Emitter.prototype.addEventListener = function (t, e) {
+        return this._callbacks = this._callbacks || {}, (this._callbacks["$" + t] = this._callbacks["$" + t] || []).push(e), this
+    }, Emitter.prototype.once = function (t, e) {
+        function i() {
+            this.off(t, i), e.apply(this, arguments)
+        }
+
+        return i.fn = e, this.on(t, i), this
+    }, Emitter.prototype.off = Emitter.prototype.removeListener = Emitter.prototype.removeAllListeners = Emitter.prototype.removeEventListener = function (t, e) {
+        if (this._callbacks = this._callbacks || {}, 0 == arguments.length) return this._callbacks = {}, this;
+        var i = this._callbacks["$" + t];
+        if (!i) return this;
+        if (1 == arguments.length) return delete this._callbacks["$" + t], this;
+        for (var r, s = 0; s < i.length; s++) if (r = i[s], r === e || r.fn === e) {
+            i.splice(s, 1);
+            break
+        }
+        return this
+    }, Emitter.prototype.emit = function (t) {
+        this._callbacks = this._callbacks || {};
+        var e = [].slice.call(arguments, 1), i = this._callbacks["$" + t];
+        if (i) {
+            i = i.slice(0);
+            for (var r = 0, s = i.length; s > r; ++r) i[r].apply(this, e)
+        }
+        return this
+    }, Emitter.prototype.listeners = function (t) {
+        return this._callbacks = this._callbacks || {}, this._callbacks["$" + t] || []
+    }, Emitter.prototype.hasListeners = function (t) {
+        return !!this.listeners(t).length
+    };// eslint-disable-line
 
     var ughbind = (Function.prototype.bind
             ? function ughbind(fn, thisObj) {
                 return fn.bind(thisObj);
             }
             : function ughbind(fn, thisObj) {
-                return function() {
+                return function () {
                     fn.apply(thisObj, arguments);
                 };
             }
     );
 
-    var sharedSubscriberTable={};
+    var sharedSubscriberTable = {};
 
     "use strict";
+
     function NchanSubscriber(url, opt) {
-        if(typeof window !== "undefined" && this === window) {
+        if (typeof window !== "undefined" && this === window) {
             throw "use 'new NchanSubscriber(...)' to initialize";
         }
 
@@ -107,111 +195,111 @@
         opt = opt || {};
 
         //which transport should i use?
-        if(typeof opt === "string") {
+        if (typeof opt === "string") {
             opt = {subscriber: opt};
         }
-        if(opt.transport && !opt.subscriber) {
+        if (opt.transport && !opt.subscriber) {
             opt.subscriber = opt.transport;
         }
-        if(typeof opt.subscriber === "string") {
-            opt.subscriber = [ opt.subscriber ];
+        if (typeof opt.subscriber === "string") {
+            opt.subscriber = [opt.subscriber];
         }
         this.desiredTransport = opt.subscriber;
 
-        if(opt.shared) {
+        if (opt.shared) {
             if (!("localStorage" in global)) {
                 throw "localStorage unavailable for use in shared NchanSubscriber";
             }
 
             var pre = "NchanSubscriber:" + this.url + ":shared:";
-            var sharedKey = function(key) { return pre + key; };
+            var sharedKey = function (key) {
+                return pre + key;
+            };
             var localStorage = global.localStorage;
             this.shared = {
                 id: "" + Math.random() + Math.random(),
                 key: sharedKey,
-                get: function(key) {
+                get: function (key) {
                     return localStorage.getItem(sharedKey(key));
                 },
-                set: function(key, val) {
+                set: function (key, val) {
                     return localStorage.setItem(sharedKey(key), val);
                 },
-                setWithId: ughbind(function(key, val) {
+                setWithId: ughbind(function (key, val) {
                     return this.shared.set(key, "##" + this.shared.id + ":" + val);
                 }, this),
-                getWithId: ughbind(function(key) {
+                getWithId: ughbind(function (key) {
                     return this.shared.stripIdFromVal(this.shared.get(key));
                 }, this),
-                stripIdFromVal: function(val) {
-                    if(!val) {
+                stripIdFromVal: function (val) {
+                    if (!val) {
                         return val;
                     }
                     var sep = val.indexOf(":");
-                    if(val[0]!=val[1] || val[0]!="#" || !sep) {
+                    if (val[0] != val[1] || val[0] != "#" || !sep) {
                         //throw "not an event value with id";
                         return val; //for backwards-compatibility
                     }
-                    return val.substring(sep+1, val.length);
+                    return val.substring(sep + 1, val.length);
                 },
-                remove: function(key) {
+                remove: function (key) {
                     return localStorage.removeItem(sharedKey(key));
                 },
-                matchEventKey: ughbind(function(ev, key) {
-                    if(ev.storageArea && ev.storageArea != localStorage){
+                matchEventKey: ughbind(function (ev, key) {
+                    if (ev.storageArea && ev.storageArea != localStorage) {
                         return false;
                     }
                     return ev.key == sharedKey(key);
                 }, this),
-                matchEventKeyWithId: ughbind(function(ev, key) {
-                    if(this.shared.matchEventKey(ev, key)) {
+                matchEventKeyWithId: ughbind(function (ev, key) {
+                    if (this.shared.matchEventKey(ev, key)) {
                         var val = ev.newValue;
                         var sep = val.indexOf(":");
-                        if(val[0]!=val[1] || val[0]!="#" || !sep) {
+                        if (val[0] != val[1] || val[0] != "#" || !sep) {
                             //throw "not an event value with id";
                             return true; //for backwards-compatibility
                         }
                         var id = val.substring(2, sep);
                         return (id != this.shared.id); //ignore own events (accomodations for IE. Fuckin' IE, even after all these years...)
-                    }
-                    else {
+                    } else {
                         return false;
                     }
                 }, this),
-                setRole: ughbind(function(role) {
+                setRole: ughbind(function (role) {
                     //console.log(this.url, "set shared role to ", role);
-                    if(role == "master" && this.shared.role != "master") {
-                        var now = new Date().getTime()/1000;
+                    if (role == "master" && this.shared.role != "master") {
+                        var now = new Date().getTime() / 1000;
                         this.shared.setWithId("master:created", now);
                         this.shared.setWithId("master:lastSeen", now);
                     }
-                    if(role == "slave" && !this.lastMessageId) {
+                    if (role == "slave" && !this.lastMessageId) {
                         this.lastMessageId = this.shared.get("msg:id");
                     }
                     this.shared.role = role;
                     return this;
                 }, this),
 
-                demoteToSlave: ughbind(function() {
+                demoteToSlave: ughbind(function () {
                     //console.log("demote to slave");
-                    if(this.shared.role != "master") {
+                    if (this.shared.role != "master") {
                         throw "can't demote non-master to slave";
                     }
-                    if(this.running) {
+                    if (this.running) {
                         this.stop();
                         this.shared.setRole("slave");
                         this.initializeTransport();
                         this.start();
-                    }
-                    else {
+                    } else {
                         this.initializeTransport();
                     }
                 }, this),
 
-                maybePromoteToMaster: ughbind(function() {
-                    if(!(this.running || this.starting)) {
+                maybePromoteToMaster: ughbind(function () {
+                    if (!(this.running || this.starting)) {
                         //console.log(this.url, "stopped Subscriber won't be promoted to master");
                         return this;
                     }
-                    if(this.shared.maybePromotingToMaster) {
+                    if (this.shared.maybePromotingToMaster) {
                         //console.log(this.url, " already maybePromotingToMaster");
                         return;
                     }
@@ -228,14 +316,14 @@
                     var bestRoll = roll;
 
                     var checkRollInterval;
-                    var checkRoll = ughbind(function(dontProcess) {
+                    var checkRoll = ughbind(function (dontProcess) {
                         var latestSharedRollTime = parseFloat(this.shared.getWithId("lotteryTime"));
                         var latestSharedRoll = parseFloat(this.shared.getWithId("lottery"));
                         var notStale = !latestSharedRollTime || (latestSharedRollTime > (new Date().getTime() - lotteryRoundDuration * 2));
-                        if(notStale && latestSharedRoll && (!bestRoll || latestSharedRoll > bestRoll)) {
+                        if (notStale && latestSharedRoll && (!bestRoll || latestSharedRoll > bestRoll)) {
                             bestRoll = latestSharedRoll;
                         }
-                        if(!dontProcess) {
+                        if (!dontProcess) {
                             processRoll();
                         }
                     }, this);
@@ -244,16 +332,16 @@
                     this.shared.setWithId("lottery", roll);
                     this.shared.setWithId("lotteryTime", new Date().getTime() / 1000);
 
-                    var rollCallback = ughbind(function(ev) {
-                        if(this.shared.matchEventKeyWithId(ev, "lottery") && ev.newValue) {
+                    var rollCallback = ughbind(function (ev) {
+                        if (this.shared.matchEventKeyWithId(ev, "lottery") && ev.newValue) {
                             currentContenders += 1;
                             var newVal = parseFloat(this.shared.stripIdFromVal(ev.newValue));
                             var oldVal = parseFloat(this.shared.stripIdFromVal(ev.oldValue));
-                            if(oldVal > newVal) {
+                            if (oldVal > newVal) {
                                 this.shared.setWithId("lottery", oldVal);
                             }
 
-                            if(!bestRoll || newVal >= bestRoll) {
+                            if (!bestRoll || newVal >= bestRoll) {
                                 //console.log("new bestRoll", newVal);
                                 bestRoll = newVal;
                             }
@@ -261,48 +349,45 @@
                     }, this);
                     global.addEventListener("storage", rollCallback);
 
-                    var finish = ughbind(function() {
+                    var finish = ughbind(function () {
                         //console.log("finish");
                         this.shared.maybePromotingToMaster = false;
                         //console.log(this.url, this.shared.role);
                         global.removeEventListener("storage", rollCallback);
-                        if(checkRollInterval) {
+                        if (checkRollInterval) {
                             clearInterval(checkRollInterval);
                         }
-                        if(this.shared && this.shared.role == "master") {
+                        if (this.shared && this.shared.role == "master") {
                             this.shared.remove("lottery");
                             this.shared.remove("lotteryTime");
                         }
-                        if(this.running) {
+                        if (this.running) {
                             this.stop();
                             this.initializeTransport();
                             this.start();
-                        }
-                        else {
+                        } else {
                             this.initializeTransport();
-                            if(this.starting) {
+                            if (this.starting) {
                                 this.start();
                             }
                         }
                     }, this);
 
-                    processRoll = ughbind(function() {
+                    processRoll = ughbind(function () {
                         //console.log("roll, bestroll", roll, bestRoll);
-                        if(roll < bestRoll) {
+                        if (roll < bestRoll) {
                             //console.log(this.url, "loser");
                             this.shared.setRole("slave");
                             finish();
-                        }
-                        else if(roll >= bestRoll) {
+                        } else if (roll >= bestRoll) {
                             //var now = new Date().getTime() / 1000;
                             //var lotteryTime = parseFloat(this.shared.getWithId("lotteryTime"));
                             //console.log(lotteryTime, now - lotteryRoundDuration/1000);
-                            if(currentContenders == 0) {
+                            if (currentContenders == 0) {
                                 //console.log("winner, no more contenders!");
                                 this.shared.setRole("master");
                                 finish();
-                            }
-                            else {
+                            } else {
                                 //console.log("winning, but have contenders", currentContenders);
                                 currentContenders = 0;
                             }
@@ -321,100 +406,92 @@
 
 
         var saveConnectionState;
-        if(!opt.reconnect) {
-            saveConnectionState = function() {};
-        }
-        else {
+        if (!opt.reconnect) {
+            saveConnectionState = function () {
+            };
+        } else {
             var index = "NchanSubscriber:" + url + ":lastMessageId";
             var storage;
-            if(opt.reconnect == "persist") {
+            if (opt.reconnect == "persist") {
                 storage = ("localStorage" in global) && global.localStorage;
-                if(!storage)
+                if (!storage)
                     throw "can't use reconnect: 'persist' option: localStorage not available";
-            }
-            else if(opt.reconnect == "session") {
+            } else if (opt.reconnect == "session") {
                 storage = ("sessionStorage" in global) && global.sessionStorage;
-                if(!storage)
+                if (!storage)
                     throw "can't use reconnect: 'session' option: sessionStorage not available";
-            }
-            else {
+            } else {
                 throw "invalid 'reconnect' option value " + opt.reconnect;
             }
-            saveConnectionState = ughbind(function(msgid) {
-                if(this.shared && this.shared.role == "slave") return;
+            saveConnectionState = ughbind(function (msgid) {
+                if (this.shared && this.shared.role == "slave") return;
                 storage.setItem(index, msgid);
             }, this);
             this.lastMessageId = storage.getItem(index);
         }
 
-        var onUnloadEvent = ughbind(function() {
-            if(this.running) {
+        var onUnloadEvent = ughbind(function () {
+            if (this.running) {
                 this.stop();
             }
-            if(this.shared && this.shared.role == "master") {
+            if (this.shared && this.shared.role == "master") {
                 this.shared.setWithId("status", "disconnected");
             }
         }, this);
         global.addEventListener("beforeunload", onUnloadEvent, false);
         // swap `beforeunload` to `unload` after DOM is loaded
-        global.addEventListener("DOMContentLoaded", function() {
+        global.addEventListener("DOMContentLoaded", function () {
             global.removeEventListener("beforeunload", onUnloadEvent, false);
             global.addEventListener("unload", onUnloadEvent, false);
         }, false);
 
 
         var notifySharedSubscribers;
-        if(this.shared) {
-            notifySharedSubscribers = ughbind(function(name, data) {
-                if(this.shared.role != "master") {
+        if (this.shared) {
+            notifySharedSubscribers = ughbind(function (name, data) {
+                if (this.shared.role != "master") {
                     return;
                 }
 
-                if(name == "message") {
+                if (name == "message") {
                     this.shared.set("msg:id", data[1] && data[1].id || "");
                     this.shared.set("msg:content-type", data[1] && data[1]["content-type"] || "");
                     this.shared.set("msg", data[0]);
-                }
-                else if(name == "error") {
+                } else if (name == "error") {
                     //TODO
-                }
-                else if(name == "connecting") {
+                } else if (name == "connecting") {
                     this.shared.setWithId("status", "connecting");
-                }
-                else if(name == "connect") {
+                } else if (name == "connect") {
                     this.shared.setWithId("status", "connected");
-                }
-                else if(name == "reconnect") {
+                } else if (name == "reconnect") {
                     this.shared.setWithId("status", "reconnecting");
-                }
-                else if(name == "disconnect") {
+                } else if (name == "disconnect") {
                     this.shared.setWithId("status", "disconnected");
                 }
             }, this);
-        }
-        else {
-            notifySharedSubscribers = function(){};
+        } else {
+            notifySharedSubscribers = function () {
+            };
         }
 
         var restartTimeoutIndex;
-        var stopHandler = ughbind(function() {
-            if(!restartTimeoutIndex && this.running && this.reconnect && !this.transport.reconnecting && !this.transport.doNotReconnect) {
+        var stopHandler = ughbind(function () {
+            if (!restartTimeoutIndex && this.running && this.reconnect && !this.transport.reconnecting && !this.transport.doNotReconnect) {
                 //console.log("stopHAndler reconnect plz", this.running, this.reconnect);
                 notifySharedSubscribers("reconnect");
-                restartTimeoutIndex = global.setTimeout(ughbind(function() {
+                restartTimeoutIndex = global.setTimeout(ughbind(function () {
                     restartTimeoutIndex = null;
                     this.stop();
                     this.start();
                 }, this), this.reconnectTimeout);
-            }
-            else {
+            } else {
                 notifySharedSubscribers("disconnect");
             }
         }, this);
 
         this.on("message", function msg(msg, meta) {
-            this.lastMessageId=meta.id;
-            if(meta.id) {
+            this.lastMessageId = meta.id;
+            if (meta.id) {
                 saveConnectionState(meta.id);
             }
             notifySharedSubscribers("message", [msg, meta]);
@@ -425,7 +502,7 @@
             notifySharedSubscribers("error", [code, text]);
             //console.log("failure", code, text);
         });
-        this.on("connect", function() {
+        this.on("connect", function () {
             this.connected = true;
             notifySharedSubscribers("connect");
         });
@@ -439,134 +516,128 @@
 
     Emitter(NchanSubscriber.prototype);
 
-    var defaultTransportOptions = function() {
+    var defaultTransportOptions = function () {
         var opt = {
             url: null,
             msgid: null,
-            headers : {}
+            headers: {}
         };
-        for(var n in NchanSubscriber.prototype.SubscriberClass) {
-            if(n != "__slave") {
-                opt[n]={};
+        for (var n in NchanSubscriber.prototype.SubscriberClass) {
+            if (n != "__slave") {
+                opt[n] = {};
             }
         }
         return opt;
     };
 
-    NchanSubscriber.prototype.initializeTransport = function(possibleTransports) {
-        if(possibleTransports) {
+    NchanSubscriber.prototype.initializeTransport = function (possibleTransports) {
+        if (possibleTransports) {
             this.desiredTransport = possibleTransports;
         }
-        if(this.shared && this.shared.role == "slave") {
+        if (this.shared && this.shared.role == "slave") {
             this.transport = new this.SubscriberClass["__slave"](ughbind(this.emit, this)); //try it
-        }
-        else {
-            var tryInitializeTransport = ughbind(function(name) {
-                if(!this.SubscriberClass[name]) {
+        } else {
+            var tryInitializeTransport = ughbind(function (name) {
+                if (!this.SubscriberClass[name]) {
                     throw "unknown subscriber type " + name;
                 }
                 try {
                     this.transport = new this.SubscriberClass[name](ughbind(this.emit, this)); //try it
                     return this.transport;
-                } catch(err) { /*meh...*/ }
+                } catch (err) { /*meh...*/
+                }
             }, this);
 
             var i;
-            if(this.desiredTransport) {
-                for(i=0; i<this.desiredTransport.length; i++) {
-                    if(tryInitializeTransport(this.desiredTransport[i])) {
+            if (this.desiredTransport) {
+                for (i = 0; i < this.desiredTransport.length; i++) {
+                    if (tryInitializeTransport(this.desiredTransport[i])) {
                         break;
                     }
                 }
-            }
-            else {
-                for(i in this.SubscriberClass) {
+            } else {
+                for (i in this.SubscriberClass) {
                     if (this.SubscriberClass.hasOwnProperty(i) && i[0] != "_" && tryInitializeTransport(i)) {
                         break;
                     }
                 }
             }
         }
-        if(! this.transport) {
+        if (!this.transport) {
             throw "can't use any transport type";
         }
     };
 
     var storageEventListener;
 
-    NchanSubscriber.prototype.start = function() {
-        if(this.running)
+    NchanSubscriber.prototype.start = function () {
+        if (this.running)
             throw "Can't start NchanSubscriber, it's already started.";
 
         this.starting = true;
 
-        if(this.shared) {
-            if(sharedSubscriberTable[this.url] && sharedSubscriberTable[this.url] != this) {
+        if (this.shared) {
+            if (sharedSubscriberTable[this.url] && sharedSubscriberTable[this.url] != this) {
                 throw "Only 1 shared subscriber allowed per url per window/tab.";
             }
             sharedSubscriberTable[this.url] = this;
 
-            if(!this.shared.role) {
+            if (!this.shared.role) {
                 var status = this.shared.getWithId("status");
-                storageEventListener = ughbind(function(ev) {
-                    if(this.shared.matchEventKeyWithId(ev, "status")) {
+                storageEventListener = ughbind(function (ev) {
+                    if (this.shared.matchEventKeyWithId(ev, "status")) {
                         var newValue = this.shared.stripIdFromVal(ev.newValue);
-                        if(newValue == "disconnected") {
-                            if(this.shared.role == "slave") {
+                        if (newValue == "disconnected") {
+                            if (this.shared.role == "slave") {
                                 //play the promotion lottery
                                 //console.log(this.url, "status changed to disconnected, maybepromotetomaster", ev.newValue, ev.oldValue);
                                 this.shared.maybePromoteToMaster();
-                            }
-                            else if(this.shared.role == "master") {
+                            } else if (this.shared.role == "master") {
                                 //do nothing
                                 //console.log(this.url, "current role is master, do nothing?...");
                             }
                         }
-                    }
-                    else if(this.shared.role == "master" && this.shared.matchEventKeyWithId(ev, "master:created") && ev.newValue) {
+                    } else if (this.shared.role == "master" && this.shared.matchEventKeyWithId(ev, "master:created") && ev.newValue) {
                         //a new master has arrived. demote to slave.
                         this.shared.demoteToSlave();
                     }
                 }, this);
                 global.addEventListener("storage", storageEventListener);
-                if(status == "disconnected") {
+                if (status == "disconnected") {
                     //console.log(this.url, "status == disconnected, maybepromotetomaster");
                     this.shared.maybePromoteToMaster();
-                }
-                else {
+                } else {
                     this.shared.setRole(status ? "slave" : "master");
                     this.initializeTransport();
                 }
             }
 
-            if(this.shared.role == "master") {
+            if (this.shared.role == "master") {
                 this.shared.setWithId("status", "connecting");
                 this.transport.listen(this.url, this.lastMessageId);
                 this.running = true;
                 this.starting = false;
 
                 //master checkin interval
-                this.shared.masterIntervalCheckID = global.setInterval(ughbind(function() {
+                this.shared.masterIntervalCheckID = global.setInterval(ughbind(function () {
                     this.shared.setWithId("master:lastSeen", new Date().getTime() / 1000);
                 }, this), this.shared.masterCheckInterval * 0.8);
-            }
-            else if(this.shared.role == "slave") {
+            } else if (this.shared.role == "slave") {
                 this.transport.listen(this.url, this.shared);
                 this.running = true;
                 this.starting = false;
 
                 //slave check if master is around
-                this.shared.masterIntervalCheckID = global.setInterval(ughbind(function() {
+                this.shared.masterIntervalCheckID = global.setInterval(ughbind(function () {
                     var lastCheckin = parseFloat(this.shared.getWithId("master:lastSeen"));
-                    if(!lastCheckin || lastCheckin < (new Date().getTime() / 1000) - this.shared.masterCheckInterval / 1000) {
+                    if (!lastCheckin || lastCheckin < (new Date().getTime() / 1000) - this.shared.masterCheckInterval / 1000) {
                         //master hasn't checked in for too long. assume it's gone.
                         this.shared.maybePromoteToMaster();
                     }
                 }, this), this.shared.masterCheckInterval);
             }
-        }
-        else {
-            if(!this.transport) {
+        } else {
+            if (!this.transport) {
                 this.initializeTransport();
             }
             this.transport.listen(this.url, this.lastMessageId);
@@ -576,18 +647,18 @@
         return this;
     };
 
-    NchanSubscriber.prototype.stop = function() {
-        if(!this.running)
+    NchanSubscriber.prototype.stop = function () {
+        if (!this.running)
             throw "Can't stop NchanSubscriber, it's not running.";
 
         this.running = false;
-        if(storageEventListener) {
+        if (storageEventListener) {
             global.removeEventListener("storage", storageEventListener);
         }
         this.transport.cancel();
-        if(this.shared) {
+        if (this.shared) {
             delete sharedSubscriberTable[this.url];
-            if(this.shared.masterIntervalCheckID) {
+            if (this.shared.masterIntervalCheckID) {
                 clearInterval(this.shared.masterIntervalCheckID);
                 this.shared.masterIntervalCheckID = null;
             }
@@ -596,7 +667,7 @@
     };
 
     function addLastMsgIdToQueryString(url, msgid) {
-        if(msgid) {
+        if (msgid) {
             var m = url.match(/(\?.*)$/);
             url += (m ? "&" : "?") + "last_event_id=" + encodeURIComponent(msgid);
         }
@@ -605,7 +676,7 @@
 
     function countKeys(obj) {
         var size = 0, key;
-        if(obj) {
+        if (obj) {
             for (key in obj) {
                 if (obj.hasOwnProperty(key)) size++;
             }
@@ -614,24 +685,24 @@
     }
 
     NchanSubscriber.prototype.SubscriberClass = {
-        "websocket": (function() {
+        "websocket": (function () {
             function WSWrapper(emit) {
                 WebSocket;
                 this.listener = null;
                 this.emit = emit;
                 this.name = "websocket";
                 this.opt = defaultTransportOptions();
-                this.opt.headers["Sec-WebSocket-Protocol"]="ws+meta.nchan";
+                this.opt.headers["Sec-WebSocket-Protocol"] = "ws+meta.nchan";
             }
 
-            WSWrapper.prototype.setup = function() {
+            WSWrapper.prototype.setup = function () {
                 this.emit("transportSetup", this.opt, this.name);
                 if (countKeys(this.opt.headers) != 1 && "Sec-WebSocket-Protocol" in this.opt.headers) {
                     throw "WebSocket only supports one header; Sec-WebSocket-Protocol";
                 }
             };
 
-            WSWrapper.prototype.websocketizeURL = function(url) {
+            WSWrapper.prototype.websocketizeURL = function (url) {
                 var m = url.match(/^((\w+:)?\/\/([^/]+))?(\/)?(.*)/);
                 var protocol = m[2];
                 var host = m[3];
@@ -639,42 +710,38 @@
                 var path = m[5];
 
                 var loc;
-                if(typeof window == "object") {
+                if (typeof window == "object") {
                     loc = window.location;
-                }
-                else if(typeof document == "object") {
+                } else if (typeof document == "object") {
                     loc = document.location;
                 }
 
-                if(!protocol && loc) {
+                if (!protocol && loc) {
                     protocol = loc.protocol;
                 }
-                if(protocol == "https:") {
+                if (protocol == "https:") {
                     protocol = "wss:";
-                }
-                else if(protocol == "http:") {
+                } else if (protocol == "http:") {
                     protocol = "ws:";
-                }
-                else if(protocol != "ws:") {
+                } else if (protocol != "ws:") {
                     protocol = "wss:"; //default setting: secure, unless "ws:" explicitly specified
                 }
 
-                if(!host && loc) {
+                if (!host && loc) {
                     host = loc.host;
                 }
 
-                if(!absolute) {
+                if (!absolute) {
                     path = loc ? loc.pathname.match(/(.*\/)[^/]*/)[1] + path : "/" + path;
-                }
-                else {
+                } else {
                     path = "/" + path;
                 }
 
                 return protocol + "//" + host + path;
             };
 
-            WSWrapper.prototype.listen = function(url, msgid) {
-                if(this.listener) {
+            WSWrapper.prototype.listen = function (url, msgid) {
+                if (this.listener) {
                     throw "websocket already listening";
                 }
                 this.opt.url = url;
@@ -686,13 +753,13 @@
                 this.listener = new WebSocket(url, this.opt.headers["Sec-WebSocket-Protocol"]);
                 var l = this.listener;
                 this.emit("transportNativeCreated", l, this.name);
-                l.onmessage = ughbind(function(evt) {
+                l.onmessage = ughbind(function (evt) {
                     if (evt.data instanceof Blob) {
                         //extract header, preserve rest of blob.
                         //let's assume the header ends in the first 255 chars
                         var headerSlice = evt.data.slice(0, 255);
                         var reader = new FileReader();
-                        reader.addEventListener("loadend", ughbind(function() {
+                        reader.addEventListener("loadend", ughbind(function () {
                             var m = reader.result.match(/^id: (.*)\n(content-type: (.*)\n)?\n/m);
                             this.emit("message", evt.data.slice(m[0].length), {"id": m[1], "content-type": m[3]});
                         }, this));
@@ -703,25 +770,25 @@
                     }
                 }, this);
 
-                l.onopen = ughbind(function(evt) {
+                l.onopen = ughbind(function (evt) {
                     this.emit("connect", evt);
                     //console.log("connect", evt);
                 }, this);
 
-                l.onerror = ughbind(function(evt) {
+                l.onerror = ughbind(function (evt) {
                     //console.log("error", evt);
                     this.emit("error", evt, l);
                     this.listener = null;
                 }, this);
 
-                l.onclose = ughbind(function(evt) {
+                l.onclose = ughbind(function (evt) {
                     this.emit("__disconnect", evt);
                     this.listener = null;
                 }, this);
             };
 
-            WSWrapper.prototype.cancel = function() {
-                if(this.listener) {
+            WSWrapper.prototype.cancel = function () {
+                if (this.listener) {
                     this.emit("transportNativeBeforeDestroy", this.listener, this.name);
                     this.listener.close();
                     this.listener = null;
@@ -731,7 +798,7 @@
             return WSWrapper;
         })(),
 
-        "eventsource": (function() {
+        "eventsource": (function () {
             function ESWrapper(emit) {
                 EventSource;
                 this.listener = null;
@@ -741,15 +808,15 @@
                 this.opt.eventsource.withCredentials = false;
             }
 
-            ESWrapper.prototype.setup = function() {
+            ESWrapper.prototype.setup = function () {
                 this.emit("transportSetup", this.opt, this.name);
                 if (countKeys(this.opt.headers) != 0) {
                     throw "EventSource does not support headers";
                 }
             };
 
-            ESWrapper.prototype.listen= function(url, msgid) {
-                if(this.listener) {
+            ESWrapper.prototype.listen = function (url, msgid) {
+                if (this.listener) {
                     throw "there's a ES listener running already";
                 }
                 this.opt.url = url;
@@ -759,35 +826,34 @@
                 this.listener = new EventSource(url, this.opt.eventsource);
                 var l = this.listener;
                 this.emit("transportNativeCreated", l, this.name);
-                l.onmessage = ughbind(function(evt){
+                l.onmessage = ughbind(function (evt) {
                     //console.log("message", evt);
                     this.emit("message", evt.data, {id: evt.lastEventId});
                 }, this);
 
-                l.onopen = ughbind(function(evt) {
+                l.onopen = ughbind(function (evt) {
                     this.reconnecting = false;
                     //console.log("connect", evt);
                     this.emit("connect", evt);
                 }, this);
 
-                l.onerror = ughbind(function(evt) {
+                l.onerror = ughbind(function (evt) {
                     //EventSource will try to reconnect by itself
                     //console.log("onerror", this.listener.readyState, evt);
-                    if(this.listener.readyState == EventSource.CONNECTING && !this.reconnecting) {
-                        if(!this.reconnecting) {
+                    if (this.listener.readyState == EventSource.CONNECTING && !this.reconnecting) {
+                        if (!this.reconnecting) {
                             this.reconnecting = true;
                             this.emit("__disconnect", evt);
                         }
-                    }
-                    else {
+                    } else {
                         this.emit("__disconnect", evt);
                         //console.log('other __disconnect', evt);
                     }
                 }, this);
             };
 
-            ESWrapper.prototype.cancel= function() {
-                if(this.listener) {
+            ESWrapper.prototype.cancel = function () {
+                if (this.listener) {
                     this.emit("transportNativeBeforeDestroy", this.listener, this.name);
                     this.listener.close();
                     this.listener = null;
@@ -804,33 +870,35 @@
                 this.pollingRequest = null;
                 this.nextRequestTimer = null;
                 this.longPollStartTime = null;
-                this.maxLongPollTime = 5*60*1000; //5 minutes
+                this.maxLongPollTime = 5 * 60 * 1000; //5 minutes
                 this.emit = emit;
                 this.name = "longpoll";
                 this.opt = defaultTransportOptions();
                 this.opt.longpoll.pollDelay = 0;
             }
 
-            Longpoll.prototype.setup = function() {
+            Longpoll.prototype.setup = function () {
                 this.emit("transportSetup", this.opt, this.name);
             };
 
-            Longpoll.prototype.listen = function(url, msgid) {
-                if(this.req) {
+            Longpoll.prototype.listen = function (url, msgid) {
+                if (this.req) {
                     throw "already listening";
                 }
                 this.opt.url = url;
                 this.opt.msgid = msgid;
-                if(msgid) {
+                if (msgid) {
                     this.opt.headers["Etag"] = msgid;
                 }
                 this.setup();
 
-                var setHeader = ughbind(function(incoming, name) {
-                    if(incoming) { this.opt.headers[name]= incoming; }
+                var setHeader = ughbind(function (incoming, name) {
+                    if (incoming) {
+                        this.opt.headers[name] = incoming;
+                    }
                 }, this);
 
-                this.pollingRequest = ughbind(function() {
+                this.pollingRequest = ughbind(function () {
                     if (this.req) {
                         this.emit("transportNativeBeforeDestroy", this.req, this.name);
                     }
@@ -839,16 +907,19 @@
                     this.req = nanoajax.ajax({url: this.opt.url, headers: this.opt.headers}, requestCallback);
                     this.emit("transportNativeCreated", this.req, this.name);
                 }, this);
-                var  requestCallback;
+                var requestCallback;
                 requestCallback = ughbind(function (code, response_text, req) {
                     setHeader(req.getResponseHeader("Last-Modified"), "If-Modified-Since");
                     setHeader(req.getResponseHeader("Etag"), "If-None-Match");
 
-                    if(code >= 200 && code <= 210) {
+                    if (code >= 200 && code <= 210) {
                         //legit reply
                         var content_type = req.getResponseHeader("Content-Type");
                         if (!this.parseMultipartMixedMessage(content_type, response_text, req)) {
-                            this.emit("message", response_text || "", {"content-type": content_type, "id": this.msgIdFromResponseHeaders(req)});
+                            this.emit("message", response_text || "", {
+                                "content-type": content_type,
+                                "id": this.msgIdFromResponseHeaders(req)
+                            });
                         }
 
                         if (this.req) { //this check is needed because stop() may have been called in the message callback
@@ -858,18 +929,15 @@
                                 this.nextRequestTimer = global.setTimeout(this.pollingRequest, this.opt.longpoll.pollDelay);
                             }
                         }
-                    }
-                    else if((code == 0 && response_text == "Error" && req.readyState == 4) || (code === null && response_text != "Abort")) {
+                    } else if ((code == 0 && response_text == "Error" && req.readyState == 4) || (code === null && response_text != "Abort")) {
                         //console.log("abort!!!");
                         this.emit("__disconnect", code || 0, response_text);
                         this.cancel();
-                    }
-                    else if(code !== null) {
+                    } else if (code !== null) {
                         //HTTP error
                         this.emit("error", code, response_text);
                         this.cancel();
-                    }
-                    else {
+                    } else {
                         //don't care about abortions
                         this.cancel();
                         this.emit("__disconnect");
@@ -883,30 +951,32 @@
                 return this;
             };
 
-            Longpoll.prototype.parseMultipartMixedMessage = function(content_type, text, req) {
+            Longpoll.prototype.parseMultipartMixedMessage = function (content_type, text, req) {
                 var m = content_type && content_type.match(/^multipart\/mixed;\s+boundary=(.*)$/);
-                if(!m) {
+                if (!m) {
                     return false;
                 }
                 var boundary = m[1];
 
                 var msgs = text.split("--" + boundary);
-                if(msgs[0] != "" || !msgs[msgs.length-1].match(/--\r?\n/)) { throw "weird multipart/mixed split"; }
+                if (msgs[0] != "" || !msgs[msgs.length - 1].match(/--\r?\n/)) {
+                    throw "weird multipart/mixed split";
+                }
 
                 msgs = msgs.slice(1, -1);
-                for(var i in msgs) {
+                for (var i in msgs) {
                     m = msgs[i].match(/^(.*)\r?\n\r?\n([\s\S]*)\r?\n$/m);
                     var hdrs = m[1].split("\n");
 
                     var meta = {};
-                    for(var j in hdrs) {
+                    for (var j in hdrs) {
                         var hdr = hdrs[j].match(/^([^:]+):\s+(.*)/);
-                        if(hdr && hdr[1] == "Content-Type") {
+                        if (hdr && hdr[1] == "Content-Type") {
                             meta["content-type"] = hdr[2];
                         }
                     }
 
-                    if(i == msgs.length - 1) {
+                    if (i == msgs.length - 1) {
                         meta["id"] = this.msgIdFromResponseHeaders(req);
                     }
                     this.emit("message", m[2], meta);
@@ -914,23 +984,21 @@
                 return true;
             };
 
-            Longpoll.prototype.msgIdFromResponseHeaders = function(req) {
+            Longpoll.prototype.msgIdFromResponseHeaders = function (req) {
                 var lastModified, etag;
                 lastModified = req.getResponseHeader("Last-Modified");
                 etag = req.getResponseHeader("Etag");
-                if(lastModified) {
-                    return "" + Date.parse(lastModified)/1000 + ":" + (etag || "0");
-                }
-                else if(etag) {
+                if (lastModified) {
+                    return "" + Date.parse(lastModified) / 1000 + ":" + (etag || "0");
+                } else if (etag) {
                     return etag;
-                }
-                else {
+                } else {
                     return null;
                 }
             };
 
-            Longpoll.prototype.cancel = function() {
-                if(this.req) {
+            Longpoll.prototype.cancel = function () {
+                if (this.req) {
                     this.emit("transportNativeBeforeDestroy", this.req, this.name);
                     this.req.abort();
                     this.req = null;
@@ -939,7 +1007,7 @@
                 return this;
             };
 
-            Longpoll.prototype.cancelPendingPollRequest = function() {
+            Longpoll.prototype.cancelPendingPollRequest = function () {
                 if (this.nextRequestTimer) {
                     global.clearTimeout(this.nextRequestTimer);
                     this.nextRequestTimer = null;
@@ -949,7 +1017,7 @@
             return Longpoll;
         })(),
 
-        "__slave": (function() {
+        "__slave": (function () {
             function LocalStoreSlaveTransport(emit) {
                 this.emit = emit;
                 this.doNotReconnect = true;
@@ -958,30 +1026,33 @@
                 this.opt = defaultTransportOptions();
             }
 
-            LocalStoreSlaveTransport.prototype.setup = function() {
+            LocalStoreSlaveTransport.prototype.setup = function () {
                 this.emit("transportSetup", this.opt, this.name);
-                if(countKeys(this.opt.headers) != 0) {
+                if (countKeys(this.opt.headers) != 0) {
                     throw "__slave does not support headers";
                 }
             };
 
-            LocalStoreSlaveTransport.prototype.listen = function(url, shared) {
+            LocalStoreSlaveTransport.prototype.listen = function (url, shared) {
                 this.shared = shared;
                 this.opt.url = url;
                 this.setup();
-                this.statusChangeChecker = ughbind(function(ev) {
-                    if(this.shared.matchEventKey(ev, "msg")) {
+                this.statusChangeChecker = ughbind(function (ev) {
+                    if (this.shared.matchEventKey(ev, "msg")) {
                         var msgId = this.shared.get("msg:id");
                         var contentType = this.shared.get("msg:content-type");
                         var msg = this.shared.get("msg");
-                        this.emit("message", msg, {"id": msgId == "" ? undefined : msgId, "content-type": contentType == "" ? undefined : contentType});
+                        this.emit("message", msg, {
+                            "id": msgId == "" ? undefined : msgId,
+                            "content-type": contentType == "" ? undefined : contentType
+                        });
                     }
                 }, this);
                 global.addEventListener("storage", this.statusChangeChecker);
                 //this.emit("transportNativeCreated", this, this.name);
             };
 
-            LocalStoreSlaveTransport.prototype.cancel = function() {
+            LocalStoreSlaveTransport.prototype.cancel = function () {
                 global.removeEventListener("storage", this.statusChangeChecker);
             };
 
