@@ -10,7 +10,7 @@ Tags: AzuraCast, Widget, Radio, Webradio, Icecast, Shoutcast, Playing, Nowplayin
 
 Requires at least: 4.6.0
 
-Tested up to: 5.5.3
+Tested up to: 5.7
 
 Requires PHP: 7.0
 
